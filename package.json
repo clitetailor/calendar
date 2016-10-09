@@ -2,7 +2,9 @@
   "name": "calendar",
   "version": "0.1.0",
   "scripts": {
-    "start": "electron app"
+    "start": "electron app/",
+    "build": "webpack --progress --profile --colors --display-error-details --display-cached",
+    "watch": "webpack --watch --progress --profile --colors --display-error-details --display-cached"
   },
   "dependencies": {
     "@angular/common": "~2.0.2",
@@ -24,16 +26,28 @@
     "zone.js": "^0.6.25"
   },
   "devDependencies": {
-    "typescript": "^2.0.3",
-    "typings": "^1.4.0",
-    "electron": "1.4.3",
+    "angular2-template-loader": "^0.5.0",
+    "awesome-typescript-loader": "^2.2.4",
+    "css-loader": "^0.25.0",
+    "electron": "^1.4.3",
     "electron-packager": "8.1.0",
-    "electron-reload": "~1.0.2"
+    "electron-reload": "~1.0.2",
+    "extract-text-webpack-plugin": "^1.0.1",
+    "file-loader": "^0.9.0",
+    "html-loader": "^0.4.4",
+    "html-webpack-plugin": "^2.22.0",
+    "null-loader": "^0.1.1",
+    "raw-loader": "^0.5.1",
+    "style-loader": "^0.13.1",
+    "ts-loader": "^0.8.2",
+    "typescript": "^2.0.3",
+    "typings": "^1.4.0"
   },
   "author": "clitetailor",
   "description": "calendar app",
   "keywords": [
     "calendar"
   ],
-  "license": "ISC"
+  "license": "ISC",
+  "main": "main.js"
 }
