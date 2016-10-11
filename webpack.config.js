@@ -33,7 +33,7 @@ module.exports = {
     loaders: [
       {
         test: /\.ts$/,
-        loaders: ['awesome-typescript-loader', 'angular2-template-loader']
+        loaders: ['ts']
       },
       {
         test: /\.html$/,
