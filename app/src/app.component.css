@@ -12,7 +12,7 @@
 
 	border-right: 1px solid #333;
 
-	z-index: 2;
+	z-index: 3;
 }
 
 	#activity-bar .button
@@ -47,7 +47,7 @@
 	
 	box-shadow: 2px 0 3px rgba(0, 0, 0, 0.4);
 
-	z-index: 1;
+	z-index: 2;
 }
 
 #side-nav::-webkit-scrollbar-thumb
@@ -120,3 +120,59 @@
 			background-color: dodgerblue;
 			color: white;
 		}
+
+
+#calendar-layout
+{
+	display: flex;
+	flex-direction: column;
+
+	position: fixed;
+
+	left: 464px;
+	top: 0;
+	bottom: 0;
+	right: 0;
+
+	z-index: 1;
+}
+
+	#badge
+	{
+		position: relative;
+
+		height: 60px;
+
+		background: darkorange;
+		box-shadow: 0 2px 3px rgba(0, 0, 0, 0.1);
+
+		border-bottom: 1px solid #ef7c00;
+
+		z-index: 3;
+	}
+
+	#calendar-header
+	{
+		position: relative;
+
+		height: 60px;
+
+		background: orange;
+
+		box-shadow: 0 2px 3px rgba(0, 0, 0, 0.1);
+		
+		border-bottom: 1px solid #ef9500;
+
+		z-index: 2;		
+	}
+
+	#calendar-details
+	{
+		position: relative;
+		flex: 1 1 auto;
+
+		height: max-content;
+
+		background: gold;
+		z-index: 1;
+	}
