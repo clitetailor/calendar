@@ -134,6 +134,8 @@
 	bottom: 0;
 	right: 0;
 
+	min-width: 720px;
+
 	z-index: 1;
 }
 
@@ -153,21 +155,34 @@
 
 	#calendar-header
 	{
+		display: flex;
+		justify-content: center;
+		align-items: center;
+
 		position: relative;
 
 		height: 60px;
 
 		background: orange;
-
 		box-shadow: 0 2px 3px rgba(0, 0, 0, 0.1);
 		
 		border-bottom: 1px solid #ddd;
+
+		font-family: Cambria, Cochin, Georgia, Times, Times New Roman, serif;
+		color: white;
+		font-size: 28px;
 
 		z-index: 2;		
 	}
 
 	#calendar-details
 	{
+		display: flex;
+		flex-direction: column;
+
+		justify-content: flex-start;
+		align-items: center;
+
 		position: relative;
 		flex: 1 1 auto;
 
@@ -176,3 +191,86 @@
 		background: gold;
 		z-index: 1;
 	}
+
+		#calendar-details ul.weakdays
+		{
+			display: flex;
+			position: relative;
+
+			justify-content: space-around;
+
+			margin-top: 48px;
+			padding: 0 0 10px 0;
+		}
+
+		#calendar-details ul.weakdays:after
+		{
+			content: "";
+			position: absolute;
+
+			bottom: 0px;
+			left: 20px;
+			right: 20px;
+
+			height: 2px;
+
+			background-color: white;
+		}
+
+		#calendar-details ul.weakdays li
+		{
+			display: inline-flex;
+
+			justify-content: center;
+			align-items: center;
+
+			width: 80px;
+			height: 15px;
+
+			font-family: Arial;
+			font-weight: bold;
+
+			color: white;
+		}
+		
+		#calendar-details ul.days-in-month
+		{
+			display: block;
+			
+			margin: 0;
+			padding: 0;
+		}
+		
+		#calendar-details ul.days-in-month:first-child
+		{
+			padding-top: 30px;
+		}
+
+		#calendar-details ul.days-in-month li
+		{
+			display: inline-flex;
+
+			justify-content: center;
+			align-items: center;
+
+			margin: 8px 25px;
+
+			width: 30px;
+			height: 30px;
+
+			font-family: Arial;
+			font-weight: bold;
+
+			color: white;
+
+			border-radius: 50%;
+			border: 1px solid white;
+/*
+			background: rgba(255, 255, 255, 0.2);*/
+		}
+		
+		#calendar-details ul.days-in-month li:hover
+		{
+			background-color: white;
+			color: black;
+		}
