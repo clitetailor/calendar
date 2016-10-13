@@ -188,7 +188,7 @@
 
 		height: max-content;
 
-		background: gold;
+		background: white;
 		z-index: 1;
 	}
 
@@ -230,7 +230,7 @@
 			font-family: Arial;
 			font-weight: bold;
 
-			color: white;
+			color: #666;
 		}
 		
 		#calendar-details ul.days-in-month
@@ -259,18 +259,14 @@
 			height: 30px;
 
 			font-family: Arial;
-			font-weight: bold;
+			
+			border-radius: 8px;
 
-			color: white;
-
-			border-radius: 50%;
-			border: 1px solid white;
-/*
-			background: rgba(255, 255, 255, 0.2);*/
+			color: #444;
 		}
 		
 		#calendar-details ul.days-in-month li:hover
 		{
-			background-color: white;
-			color: black;
+			background-color: #444;
+			color: white;
 		}

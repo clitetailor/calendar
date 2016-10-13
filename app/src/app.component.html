@@ -47,9 +47,11 @@
 			<li>Sun</li>
 		</ul>
 
-		<ul *ngFor="let i of [1, 2, 3, 4, 5]"
+		<ul *ngFor="let i1 of [0, 1, 2, 3, 4]"
 		  class="days-in-month">
-			<li *ngFor="let i of [1, 2, 3, 4, 5, 6, 7]"></li>
+			<li *ngFor="let i2 of [0, 1, 2, 3, 4, 5, 6]">
+				{{i1 * 7 + i2}}
+			</li>
 		</ul>
 	</div>
 </div>
