@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+
+import { DateService } from './date.service';
 
 @Component({
   selector: 'my-app',
@@ -7,7 +9,35 @@ import { Component } from '@angular/core';
     "src/app.component.css"
   ]
 })
-export class AppComponent
+export class AppComponent implements OnInit
 {
-	dates: Number[] = [];
+  weekdays = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+	datesInMonth: number[][];
+  month: Date;
+
+  constructor(private dateService: DateService)
+  {
+
+  }
+
+  ngOnInit()
+  {
+    this.getDatesInMonth(new Date());
+  }
+
+  onPreviousMonthButtonClick()
+  {
+    this.getDatesInMonth(this.dateService.getPreviousMonth(this.month));
+  }
+
+  onNextMonthButtonClick()
+  {
+    this.getDatesInMonth(this.dateService.getNextMonth(this.month));
+  }
+
+  getDatesInMonth(date: Date)
+  {
+    this.month = date;
+    this.datesInMonth = this.dateService.getDatesInMonth(date);
+  }
 }

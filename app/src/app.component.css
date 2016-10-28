@@ -168,12 +168,27 @@
 		
 		border-bottom: 1px solid #ddd;
 
-		font-family: Cambria, Cochin, Georgia, Times, Times New Roman, serif;
-		color: white;
-		font-size: 28px;
-
 		z-index: 2;		
 	}
+
+		#calendar-header .previous
+		{
+			color: white;
+			cursor: pointer;
+		}
+
+		#calendar-header .next
+		{
+			color: white;
+			cursor: pointer;
+		}
+
+		#calendar-header .month
+		{
+			font-family: Cambria, Cochin, Georgia, Times, Times New Roman, serif;
+			color: white;
+			font-size: 28px;
+		}
 
 	#calendar-details
 	{

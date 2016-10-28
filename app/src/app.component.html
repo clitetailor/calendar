@@ -34,23 +34,22 @@
 
 	</div>
 	<div id="calendar-header">
-		October 2016
+		<i class="previous material-icons" (click)="onPreviousMonthButtonClick()">navigate before</i>
+
+		<div class="month">{{month | date: "MMMM  y"}}</div>
+
+		<i class="next material-icons" (click)="onNextMonthButtonClick()">navigate next</i>
 	</div>
 	<div id="calendar-details">
 		<ul class="weakdays">
-			<li>Mon</li>
-			<li>Tue</li>
-			<li>Wed</li>
-			<li>Thu</li>
-			<li>Fri</li>
-			<li>Sat</li>
-			<li>Sun</li>
+			<li *ngFor="let day of weekdays">
+				{{day}}
+			</li>
 		</ul>
 
-		<ul *ngFor="let i1 of [0, 1, 2, 3, 4]"
-		  class="days-in-month">
-			<li *ngFor="let i2 of [0, 1, 2, 3, 4, 5, 6]">
-				{{i1 * 7 + i2}}
+		<ul *ngFor="let week of datesInMonth" class="days-in-month">
+			<li *ngFor="let day of week">
+				{{day}}
 			</li>
 		</ul>
 	</div>
