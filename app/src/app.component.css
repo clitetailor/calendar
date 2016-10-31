@@ -181,8 +181,6 @@
 
 	min-width: 640px;
 
-	background: orange;
-
 	z-index: 1;
 }
 
@@ -250,8 +248,7 @@
 		border-collapse: collapse;
 
 		text-align: center;
-
-		width: 100%;
+		margin: 30px auto;
 
 		z-index: 1;
 	}
@@ -261,7 +258,6 @@
 			padding: 16px 20px 12px 20px;
 
 			color: #444;
-			background: orange;
 
 			font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 			font-size: 16px;
@@ -283,17 +279,41 @@
 
 		table.calendar-body tbody tr td
 		{
-			padding-top: 20px;
-			padding-bottom: 20px;
+			padding-top: 12px;
+			padding-bottom: 12px;
 
 			color: white;
-			background: #444;
 
 			font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 			font-size: 16px;
 		}
 
-		table.calendar-body tbody tr td.visible:hover
+		table.calendar-body tbody tr td.visible .node
 		{
-			background: dodgerblue;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+
+			margin: 0 auto;
+
+			width: 28px;
+			height: 28px;
+
+			color: #666;
+			font-family: Arial, Helvetica, sans-serif;
+
+			border-radius: 10px;
+			/*border: 1px solid rgba(0, 0, 0, 0.2);*/
+
+			cursor: pointer;
+			
+			-webkit-user-select: none;
+		}
+
+		table.calendar-body tbody tr td.visible .node:hover
+		{
+			color: white;
+			background: #666;
+
+			/*border: 1px solid transparent;*/
 		}
