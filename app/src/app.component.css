@@ -247,18 +247,46 @@
 
 	table.calendar-body
 	{
+		display: block;
 		border-collapse: collapse;
 
 		text-align: center;
 
-		width: 100%;
-
 		z-index: 1;
 	}
-			
+		
+		table.calendar-body thead, table.calendar-body tbody
+		{
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
+			align-items: center;
+
+			width: 100%;
+		}
+
+		table.calendar-body tbody
+		{
+			padding-top: 10px;
+			padding-bottom: 10px;
+			background: #444;
+		}
+
+		table.calendar-body thead tr, table.calendar-body tbody tr
+		{
+			display: flex;
+			flex-direction: row;
+			justify-content: center;
+
+			width: 560px;
+		}
+
 		table.calendar-body thead tr th
 		{
-			padding: 16px 20px 12px 20px;
+			display: block;
+			flex: 1 1 0;
+			padding-top: 20px;
+			padding-bottom: 20px;
 
 			color: #444;
 			background: orange;
@@ -271,26 +299,35 @@
 			-webkit-user-select: none;
 		}
 
-		table.calendar-body thead tr::after
-		{
-			content: "";
-			display: block;
-
-			background: #444;
-
-			height: 10px;
-		}
-
 		table.calendar-body tbody tr td
 		{
-			padding-top: 20px;
-			padding-bottom: 20px;
+			display: flex;
+			flex: 1 1 0;
+			padding-top: 16px;
+			padding-bottom: 16px;
 
 			color: white;
 			background: #444;
 
 			font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 			font-size: 16px;
+
+			justify-content: center;
+
+			-webkit-user-select: none;
+			cursor: default;
+
+			transition: transform 0.1s;
+		}
+
+		table.calendar-body tbody tr td:active
+		{
+			transform: rotate3d(1, -1, 0, 45deg);
+		}
+
+		table.calendar-body tbody tr td .node
+		{
+			height: 20px;
 		}
 
 		table.calendar-body tbody tr td.visible:hover
