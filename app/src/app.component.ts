@@ -15,6 +15,8 @@ export class AppComponent implements OnInit
 	datesInMonth: number[][];
   month: Date;
 
+  tags = [];
+
   constructor(private dateService: DateService)
   {
 

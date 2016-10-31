@@ -1,56 +1,61 @@
-<div id="activity-bar">
+<nav class="activity-bar">
 	<div class="button">
 		<i class="material-icons">menu</i>
 	</div>
 	<div class="button">
 		<i class="material-icons">settings</i>
 	</div>
-</div>
+</nav>
 
-<div id="side-nav">
+<nav class="side-nav">
 	<div class="list">
-		<div class="header">General</div>
+		<div class="heading">General</div>
 		<div class="item">All</div>
-		<div class="item">Weakly</div>
+		<div class="item selected">Weakly</div>
 		<div class="item">Monthly</div>
 		<div class="item">Yearly</div>
 	</div>
-
 	
 	<div class="list">
-		<div class="header">Events</div>
+		<div class="heading">Events</div>
 		<div class="item">Birthdays</div>
 		<div class="item">Events</div>
 	</div>
 
 	
 	<div class="list">
-		<div class="header">Tags</div>
+		<div class="heading">Tags</div>
+		<div *ngFor="let tag of tags" class="item">
+			{{tag}}
+		</div>
 	</div>
-</div>
+</nav>
 
-<div id="calendar-layout">
-	<div id="badge">
+<div class="body">
 
+	<div class="calendar-heading">
+		<i class="action material-icons" (click)="onPreviousMonthButtonClick()">keyboard_arrow_left</i>
+
+		<div class="text">{{month | date: "MMMM  y"}}</div>
+
+		<i class="material-icons action" (click)="onNextMonthButtonClick()">keyboard_arrow_right</i>
 	</div>
-	<div id="calendar-header">
-		<i class="previous material-icons" (click)="onPreviousMonthButtonClick()">navigate before</i>
+	
+	<table class="calendar-body">
+		<thead class="heading">
+			<tr>
+				<th *ngFor="let day of weekdays">
+					{{day}}
+				</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr *ngFor="let week of datesInMonth">
+				<td *ngFor="let day of week" [class.visible]="day">
+					<div class="node">{{day}}</div>
+				</td>
+			</tr>
+		</tbody>
+	</table>
 
-		<div class="month">{{month | date: "MMMM  y"}}</div>
-
-		<i class="next material-icons" (click)="onNextMonthButtonClick()">navigate next</i>
-	</div>
-	<div id="calendar-details">
-		<ul class="weakdays">
-			<li *ngFor="let day of weekdays">
-				{{day}}
-			</li>
-		</ul>
-
-		<ul *ngFor="let week of datesInMonth" class="days-in-month">
-			<li *ngFor="let day of week">
-				{{day}}
-			</li>
-		</ul>
-	</div>
 </div>

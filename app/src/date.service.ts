@@ -28,9 +28,14 @@ export class DateService
 			}
 		}
 
-		while (week.length < 7)
+		if (week.length != 0)
 		{
-			week.push(undefined);
+			while (week.length < 7)
+			{
+				week.push(undefined);
+			}
+
+			weeks.push(week);
 		}
 
 		return weeks;
@@ -38,12 +43,12 @@ export class DateService
 
 	private lastDayInMonth(month: Date)
 	{
-		return new Date(month.getFullYear(), month.getMonth(), 0);
+		return new Date(month.getFullYear(), month.getMonth() + 1, 0);
 	}
 
 	private firstDayInMonth(month: Date)
 	{
-		return new Date(month.getFullYear(), month.getMonth() - 1, 1);
+		return new Date(month.getFullYear(), month.getMonth(), 1);
 	}
 
 	getPreviousMonth(date: Date)
