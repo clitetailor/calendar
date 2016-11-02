@@ -1,61 +1,113 @@
-<nav class="activity-bar">
+<div class="activity-bar">
 	<div class="button">
 		<i class="material-icons">menu</i>
 	</div>
 	<div class="button">
 		<i class="material-icons">settings</i>
 	</div>
-</nav>
+</div>
 
-<nav class="side-nav">
-	<div class="list">
-		<div class="heading">General</div>
-		<div class="item">All</div>
-		<div class="item selected">Weakly</div>
-		<div class="item">Monthly</div>
-		<div class="item">Yearly</div>
-	</div>
-	
-	<div class="list">
-		<div class="heading">Events</div>
-		<div class="item">Birthdays</div>
-		<div class="item">Events</div>
-	</div>
+<div class="side-nav" [class.nav]="!edit">
+	<div class="row">
+		<div class="column">
+			<div class="list">
+				<div class="heading">General</div>
+				<div class="item">All</div>
+				<div class="item selected">Weakly</div>
+				<div class="item">Monthly</div>
+				<div class="item">Yearly</div>
+			</div>
+			
+			<div class="list">
+				<div class="heading">Events</div>
+				<div class="item">Birthdays</div>
+				<div class="item">Events</div>
+			</div>
+			
+			<div class="list">
+				<div class="heading">Tags</div>
+				<div *ngFor="let tag of tags" class="item">
+					{{tag}}
+				</div>
+			</div>
+		</div>
 
-	
-	<div class="list">
-		<div class="heading">Tags</div>
-		<div *ngFor="let tag of tags" class="item">
-			{{tag}}
+		<div class="column">
+			<div class="calendar-editor">
+				<div class="title">TODO</div>
+				<div class="input" contenteditable="true"></div>
+
+				<div class="title">Schedule</div>
+				<div class="input short" contenteditable="true"></div>
+				<div class="input short" contenteditable="true"></div>
+			</div>
 		</div>
 	</div>
-</nav>
+</div>
 
 <div class="body">
+	<div class="banner upper-banner">
 
-	<div class="calendar-heading">
-		<i class="action material-icons" (click)="onPreviousMonthButtonClick()">keyboard_arrow_left</i>
-
-		<div class="text">{{month | date: "MMMM  y"}}</div>
-
-		<i class="material-icons action" (click)="onNextMonthButtonClick()">keyboard_arrow_right</i>
+		<div class="button-group">
+			<div class="button" [class.selected]="view=='calendar'" (click)="toggleCalendar()">
+				<i class="material-icons">date_range</i>
+			</div>
+			<div class="button" [class.selected]="view=='timeline'" (click)="toggleSchedule()">
+				<i class="material-icons">list</i>
+			</div>
+		</div>
+		
 	</div>
-	
-	<table class="calendar-body">
-		<thead class="heading">
-			<tr>
-				<th *ngFor="let day of weekdays">
-					{{day}}
-				</th>
-			</tr>
-		</thead>
-		<tbody>
-			<tr *ngFor="let week of datesInMonth">
-				<td *ngFor="let day of week" [class.visible]="day">
-					<div class="node">{{day}}</div>
-				</td>
-			</tr>
-		</tbody>
-	</table>
 
+	<div class="main" [ngSwitch]="view">
+		<template [ngSwitchCase]="'calendar'">
+			<div class="calendar-heading">
+				<i class="action material-icons" (click)="onPreviousMonthButtonClick()">keyboard_arrow_left</i>
+
+				<div class="text">{{month | date: "MMMM  y"}}</div>
+
+				<i class="material-icons action" (click)="onNextMonthButtonClick()">keyboard_arrow_right</i>
+			</div>
+			
+			<table class="calendar-body">
+				<thead class="heading">
+					<tr>
+						<th *ngFor="let day of weekdays">
+							{{day}}
+						</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr *ngFor="let week of datesInMonth">
+						<td *ngFor="let day of week" [class.visible]="day">
+							<div class="node">{{day}}</div>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+
+			<div class="banner lower-banner">
+				<div class="button raised-button" (click)="toggleEditor()">
+					<i class="material-icons">add</i>
+				</div>
+			</div>
+		</template>
+
+		<template [ngSwitchCase]="'timeline'">
+			<div class="timeline">
+				<div class="column">
+					<div class="card">
+						<div class="time">8h30</div>
+						<div class="title">Something that we need to do!</div>
+					</div>
+				</div>
+
+				<div class="fixed-box">
+					<div class="button raised-button" (click)="toggleEditor()">
+						<i class="material-icons">add</i>
+					</div>
+				</div>
+			</div>
+		</template>
+	</div>
 </div>

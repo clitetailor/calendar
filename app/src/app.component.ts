@@ -42,4 +42,26 @@ export class AppComponent implements OnInit
     this.month = date;
     this.datesInMonth = this.dateService.getDatesInMonth(date);
   }
+
+
+  edit = false;
+
+  toggleEditor()
+  {
+    this.edit = true;
+  }
+
+
+
+  view = "calendar";
+
+  toggleCalendar()
+  {
+    this.view = "calendar";
+  }
+
+  toggleSchedule()
+  {
+    this.view = "timeline";
+  }
 }

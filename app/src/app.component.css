@@ -84,14 +84,37 @@
 	
 	box-shadow: 2px 0 3px rgba(0, 0, 0, 0.4);
 
+	overflow: hidden;
+
 	z-index: 2;
 }
 
-.side-nav::-webkit-scrollbar-thumb
-{
-	background-color: rgba(255, 255, 255, 0.1);
-}
+	.side-nav .row
+	{
+		width: 200%;
+	}
 
+	.side-nav.nav .row
+	{
+		margin-left: -100%;
+	}
+
+	.side-nav .column
+	{
+		display: block;
+		width: 50%;
+		float: left;
+	}
+
+		.side-nav .column::-webkit-scrollbar
+		{
+			border: 1px solid #444;;
+		}
+
+		.side-nav .column:hover::-webkit-scrollbar-thumb
+		{
+			background: rgba(255, 255, 255, 0.1);
+		}
 
 	.side-nav .list:not(:first-child)
 	{
@@ -164,6 +187,35 @@
 		}
 
 
+.button-group
+{
+	color: white;
+}
+
+	.button-group .button
+	{
+		display: inline-block;
+		padding: 10px;
+
+		border-radius: 3px;
+	}
+
+	.button-group .button:hover
+	{
+		background: white;
+		color: #444;
+
+		cursor: pointer;
+	}
+
+	.button-group .button.selected
+	{
+		color: white;
+		background: #444;
+		box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.4);
+	}
+
+
 .body
 {
 	display: flex;
@@ -179,24 +231,24 @@
 	bottom: 0;
 	right: 0;
 
-	min-width: 640px;
+	min-width: 720px;
 
-	background: orange;
+	background: tomato;
 
 	z-index: 1;
 }
 
-	.banner
+.main
+{
+	flex: 1 1 auto;
+}
+
+	.banner.upper-banner
 	{
-		position: relative;
+		padding: 10px 40px;
+		box-shadow: 0 2px 5px rgba(0, 0, 0, 0.4);
 
-		height: 60px;
-
-		color: white;
-		background: darkorange;
-		box-shadow: 0 2px 3px rgba(0, 0, 0, 0.1);
-
-		border-bottom: 1px solid #ddd;
+		background: lightseagreen;
 
 		z-index: 3;
 	}
@@ -210,9 +262,10 @@
 
 		padding-left: 100px;
 		padding-right: 100px;
+		padding-top: 20px;
 
 		color: white;
-		background: orange;
+		background: gray;
 
 		z-index: 2;
 	}
@@ -232,7 +285,7 @@
 
 		.calendar-heading .action:hover
 		{
-			color: coral;
+			color: gray;
 			background-color: white;
 		}
 
@@ -265,11 +318,18 @@
 			width: 100%;
 		}
 
+		table.calendar-body thead
+		{
+			background: gray;
+		}
+
 		table.calendar-body tbody
 		{
 			padding-top: 10px;
 			padding-bottom: 10px;
 			background: #444;
+
+			box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.4);
 		}
 
 		table.calendar-body thead tr, table.calendar-body tbody tr
@@ -289,7 +349,6 @@
 			padding-bottom: 20px;
 
 			color: #444;
-			background: orange;
 
 			font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 			font-size: 16px;
@@ -320,11 +379,6 @@
 			transition: transform 0.1s;
 		}
 
-		table.calendar-body tbody tr td:active
-		{
-			transform: rotate3d(1, -1, 0, 45deg);
-		}
-
 		table.calendar-body tbody tr td .node
 		{
 			height: 20px;
@@ -334,3 +388,149 @@
 		{
 			background: dodgerblue;
 		}
+	
+	.lower-banner
+	{
+		display: flex;
+		padding: 20px 40px;
+		justify-content: flex-end;
+	}
+
+		.button.raised-button
+		{
+			padding: 10px;
+
+			background: #444;
+			color: white;
+
+			box-shadow: 0 2px 5px rgba(0, 0, 0, 0.4);
+
+			border-radius: 3px;
+
+			cursor: pointer;
+			-webkit-user-select: none;
+		}
+
+		.button.raised-button:hover
+		{
+			color: #444;
+			background: white;
+		}
+	
+	.timeline
+	{
+		display: flex;
+		position: relative;
+
+		justify-content: center;
+		height: 100%;
+
+		padding: 0;
+	}
+
+	.timeline .column
+	{
+		padding-top: 24px;
+		padding-bottom: 80px;
+
+		flex: 1 1 auto;
+		
+		height: 100%;
+
+		overflow-y: auto;
+	}
+
+	.timeline .fixed-box
+	{
+		position: absolute;
+		right: 80px;
+		bottom: 140px;
+	}
+	
+		.timeline .fixed-box .button
+		{
+			padding: 16px;
+		}
+		
+	.timeline .card
+	{
+		display: flex;
+		margin: 0 auto 16px auto;
+		padding: 16px;
+
+		width: 560px;
+		color: white;
+		background: #444;
+
+		box-shadow: 0 2px 5px rgba(0, 0, 0, 0.4);
+
+		font-family: Arial, Helvetica, sans-serif;
+	}
+
+	.timeline .card .time
+	{
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+
+		flex: 0 0 56px;
+
+		font-weight: bold;
+		font-size: 16;
+
+		color: dodgerblue;
+		border-right: 1px solid #666;
+	}
+
+	.timeline .card .title
+	{
+		flex: 1 1 auto;
+
+		margin-left: 16px;
+	}
+
+.calendar-editor
+{
+	margin: 15px 20px 30px 20px;
+}
+
+	.calendar-editor .title
+	{
+		margin-top: 30px;
+		margin-bottom: 5px;
+
+		font-family: Arial;
+		font-size: 12px;
+
+		color: #ddd;
+		font-weight: bold;
+	}
+
+	.calendar-editor .input
+	{
+		margin: 5px auto;
+		padding: 5px;
+
+		background: none;
+		color: white;
+
+		font-size: 16px;
+		font-family: Arial, Helvetica, sans-serif;
+
+		outline: none;
+		border: none;
+		border-bottom: 2px solid #ddd;
+	}
+
+	.calendar-editor .input:focus
+	{
+		border-bottom-color: dodgerblue;
+	}
+
+	.calendar-editor .input.short
+	{
+		float: left;
+		width: 40px;
+		margin-right: 15px;
+	}
+	
