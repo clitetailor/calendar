@@ -64,4 +64,21 @@ export class AppComponent implements OnInit
   {
     this.view = "timeline";
   }
+
+
+  notes = []
+
+  getNotes()
+  {
+    
+  }
+
+  addNote(note)
+  {
+    this.notes.push({
+      todo: note.todo,
+      time: new Date(),
+      tag: note.tag
+    });
+  }
 }

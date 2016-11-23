@@ -529,8 +529,38 @@
 
 	.calendar-editor .input.short
 	{
-		float: left;
 		width: 40px;
 		margin-right: 15px;
 	}
-	
+
+	.calendar-editor .button-group
+	{
+		display: flex;
+		justify-content: flex-end;
+
+		margin: 30px auto;
+	}
+
+		.calendar-editor .button-group .button
+		{
+			padding: 10px 20px;
+
+			margin: 0 5px;
+
+			color: white;
+			font-family: Arial, Helvetica, sans-serif;
+			font-size: 14px;
+			font-weight: bold;
+
+			background: tomato;
+
+			box-shadow: 0 2px 5px rgba(0, 0, 0, 0.4);
+
+			-webkit-user-select: none;
+		}
+
+		.calendar-editor .button-group .button:hover
+		{
+			background: white;
+			color: #444;
+		}

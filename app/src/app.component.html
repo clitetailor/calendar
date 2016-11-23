@@ -7,7 +7,7 @@
 	</div>
 </div>
 
-<div class="side-nav" [class.nav]="!edit">
+<div class="side-nav" [class.nav]="edit">
 	<div class="row">
 		<div class="column">
 			<div class="list">
@@ -33,13 +33,20 @@
 		</div>
 
 		<div class="column">
-			<div class="calendar-editor">
+			<div class="calendar-editor" #note>
 				<div class="title">TODO</div>
-				<div class="input" contenteditable="true"></div>
+				<input class="input" name="todo" [(ngModel)]="note.todo" type="text"/>
 
-				<div class="title">Schedule</div>
-				<div class="input short" contenteditable="true"></div>
-				<div class="input short" contenteditable="true"></div>
+				<div class="title">Time</div>
+				<input class="input" name="time" [(ngModel)]="note.time" type="text"/>
+
+				<div class="title">Tag</div>
+				<input class="input" name="tag" [(ngModel)]="note.tag" type="text"/>
+
+				<div class="button-group">
+					<div class="button" (click)="addNote(note)">Done</div>
+					<div class="button">Cancel</div>
+				</div>
 			</div>
 		</div>
 	</div>
@@ -91,15 +98,17 @@
 					<i class="material-icons">add</i>
 				</div>
 			</div>
-		</template>
-
-		<template [ngSwitchCase]="'timeline'">
+			
 			<div class="timeline">
 				<div class="column">
-					<div class="card">
-						<div class="time">8h30</div>
-						<div class="title">Something that we need to do!</div>
-					</div>
+					
+					<template ngFor let-note [ngForOf]="notes">
+						<div class="card">
+							<div class="time">{{note.time | date: "hh:mm"}}</div>
+							<div class="title">{{note.todo}}</div>
+						</div>
+					</template>
+
 				</div>
 
 				<div class="fixed-box">
@@ -108,6 +117,10 @@
 					</div>
 				</div>
 			</div>
+		</template>
+
+		<template [ngSwitchCase]="'timeline'">
+			
 		</template>
 	</div>
 </div>
