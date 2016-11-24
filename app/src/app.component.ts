@@ -41,6 +41,7 @@ export class AppComponent implements OnInit {
     this.datesInMonth = this.dateService.getDatesInMonth(date);
   }
 
+
   view = "calendar";
 
   toggleCalendar() {
@@ -64,7 +65,7 @@ export class AppComponent implements OnInit {
   noteFilter: String = 'general/all';
 
   getNotes() {
-    this.notes = this.dataStorageService.getNotes();
+    this.notes = this.dataStorageService.getNotes().sort((pre, next) => pre.time - next.time);
   }
 
   addNote(note) {
@@ -87,17 +88,7 @@ export class AppComponent implements OnInit {
     })
 
     this.notificationService.setNotification(note);
-
-    console.log(note);
     return;
-
-    // this.dataStorageService.addNote(note);
-
-    // this.notes.push(note);
-    // this.notes = this.dataStorageService.getNotes();
-    // this.notes.sort((pre, next) => next.time - pre.time)
-
-    // console.log(note);
   }
 
 

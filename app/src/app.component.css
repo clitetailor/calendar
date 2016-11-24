@@ -241,6 +241,7 @@
 .main
 {
 	flex: 1 1 auto;
+	flex-direction: row;
 }
 
 	.banner.upper-banner
@@ -423,20 +424,13 @@
 		position: relative;
 
 		justify-content: center;
-		height: 100%;
+		flex: 1 1 0;
 
 		padding: 0;
 	}
 
 	.timeline .column
 	{
-		padding-top: 24px;
-		padding-bottom: 80px;
-
-		flex: 1 1 auto;
-		
-		height: 100%;
-
 		overflow-y: auto;
 	}
 
