@@ -17,13 +17,13 @@
 				<div class="item">Monthly</div>
 				<div class="item">Yearly</div>
 			</div>
-			
+
 			<div class="list">
 				<div class="heading">Events</div>
 				<div class="item">Birthdays</div>
 				<div class="item">Events</div>
 			</div>
-			
+
 			<div class="list">
 				<div class="heading">Tags</div>
 				<div *ngFor="let tag of tags" class="item">
@@ -33,21 +33,27 @@
 		</div>
 
 		<div class="column">
-			<div class="calendar-editor" #note>
-				<div class="title">TODO</div>
-				<input class="input" name="todo" [(ngModel)]="note.todo" type="text"/>
+			<form class="calendar-editor" #noteForm="ngForm">
+				<div class="title">Title</div>
+				<input class="input" name="title" ngModel type="text" />
 
-				<div class="title">Time</div>
-				<input class="input" name="time" [(ngModel)]="note.time" type="text"/>
+				<div class="title">Description</div>
+				<input class="input" name="description" ngModel type="text" />
 
-				<div class="title">Tag</div>
-				<input class="input" name="tag" [(ngModel)]="note.tag" type="text"/>
+				<div class="title">Date</div>
+				<input class="input" name="day" ngModel type="text" />
+				<input class="input" name="month" ngModel type="text" />
+				<input class="input" name="year" ngModel type="text" />
 
+				<div class="title">Time</div>				
+				<input class="input" name="hours" ngModel type="text" />
+				<input class="input" name="minutes" ngModel type="text" />
+				
 				<div class="button-group">
-					<div class="button" (click)="addNote(note)">Done</div>
+					<div class="button" (click)="addNote(noteForm.value)">Done</div>
 					<div class="button">Cancel</div>
 				</div>
-			</div>
+			</form>
 		</div>
 	</div>
 </div>
@@ -63,7 +69,7 @@
 				<i class="material-icons">list</i>
 			</div>
 		</div>
-		
+
 	</div>
 
 	<div class="main" [ngSwitch]="view">
@@ -71,11 +77,11 @@
 			<div class="calendar-heading">
 				<i class="action material-icons" (click)="onPreviousMonthButtonClick()">keyboard_arrow_left</i>
 
-				<div class="text">{{month | date: "MMMM  y"}}</div>
+				<div class="text">{{month | date: "MMMM y"}}</div>
 
 				<i class="material-icons action" (click)="onNextMonthButtonClick()">keyboard_arrow_right</i>
 			</div>
-			
+
 			<table class="calendar-body">
 				<thead class="heading">
 					<tr>
@@ -98,14 +104,14 @@
 					<i class="material-icons">add</i>
 				</div>
 			</div>
-			
+
 			<div class="timeline">
 				<div class="column">
-					
+
 					<template ngFor let-note [ngForOf]="notes">
 						<div class="card">
 							<div class="time">{{note.time | date: "hh:mm"}}</div>
-							<div class="title">{{note.todo}}</div>
+							<div class="title">{{note.title}}</div>
 						</div>
 					</template>
 
@@ -120,7 +126,7 @@
 		</template>
 
 		<template [ngSwitchCase]="'timeline'">
-			
+
 		</template>
 	</div>
 </div>

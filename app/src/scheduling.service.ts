@@ -2,9 +2,7 @@ import { Injectable } from '@angular/core';
 import { Subject, Observable } from 'rxjs';
 
 @Injectable()
-
-export class SchedulingService
-{
+export class SchedulingService {
 	private noteAnnoucedSource = new Subject<any>();
 	private noteConfirmedSource = new Subject<any>();
 
@@ -16,23 +14,15 @@ export class SchedulingService
 
 	nextNote = undefined;
 
-	constructor()
-	{
-		this.noteAnnouced$.subscribe((note) =>
-		{
-			
-
-			this.periodicCheck = setInterval(() =>
-			{
+	constructor() {
+		this.noteAnnouced$.subscribe((note) => {
+			this.periodicCheck = setInterval(() => {
 
 			}, 50000);
 		});
 	}
 
-
-	
-	getNextNote(notes)
-	{
+	getNextNote(notes) {
 
 	}
 }

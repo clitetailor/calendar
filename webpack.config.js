@@ -13,6 +13,8 @@ module.exports = {
     devtool: 'source-map',
     debug:   true,
 
+    target: 'electron',
+
     entry: {
         'app': './app/src/main.ts'
     },

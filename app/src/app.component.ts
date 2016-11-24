@@ -1,84 +1,107 @@
 import { Component, OnInit } from '@angular/core';
 
 import { DateService } from './date.service';
+import { DataStorageService } from './data-storage.service';
+import { NotificationService } from './notification.service';
+
+import { Note } from './note';
 
 @Component({
   selector: 'my-app',
   templateUrl: "src/app.component.html",
-  styleUrls :[
+  styleUrls: [
     "src/app.component.css"
   ]
 })
-export class AppComponent implements OnInit
-{
+export class AppComponent implements OnInit {
   weekdays = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
-	datesInMonth: number[][];
+  datesInMonth: number[][];
   month: Date;
 
   tags = [];
 
-  constructor(private dateService: DateService)
-  {
+  constructor(private dateService: DateService, private dataStorageService: DataStorageService, private notificationService: NotificationService) {
 
   }
 
-  ngOnInit()
-  {
+  ngOnInit() {
     this.getDatesInMonth(new Date());
   }
 
-  onPreviousMonthButtonClick()
-  {
+  onPreviousMonthButtonClick() {
     this.getDatesInMonth(this.dateService.getPreviousMonth(this.month));
   }
 
-  onNextMonthButtonClick()
-  {
+  onNextMonthButtonClick() {
     this.getDatesInMonth(this.dateService.getNextMonth(this.month));
   }
 
-  getDatesInMonth(date: Date)
-  {
+  getDatesInMonth(date: Date) {
     this.month = date;
     this.datesInMonth = this.dateService.getDatesInMonth(date);
+  }
+
+  view = "calendar";
+
+  toggleCalendar() {
+    this.view = "calendar";
+  }
+
+  toggleSchedule() {
+    this.view = "timeline";
   }
 
 
   edit = false;
 
-  toggleEditor()
-  {
+  toggleEditor() {
     this.edit = true;
   }
 
 
 
-  view = "calendar";
+  notes = [];
+  noteFilter: String = 'general/all';
 
-  toggleCalendar()
-  {
-    this.view = "calendar";
+  getNotes() {
+    this.notes = this.dataStorageService.getNotes();
   }
 
-  toggleSchedule()
-  {
-    this.view = "timeline";
-  }
+  addNote(note) {
+    let currentTime = new Date();
 
-
-  notes = []
-
-  getNotes()
-  {
-    
-  }
-
-  addNote(note)
-  {
-    this.notes.push({
-      todo: note.todo,
-      time: new Date(),
+    note = {
+      title: note.title,
+      description: note.description,
+      time: new Date(note.year || currentTime.getFullYear(),
+        note.month || currentTime.getMonth(),
+        note.day || currentTime.getDate(),
+        note.hours || 24,
+        note.minutes || 0),
       tag: note.tag
-    });
+    }
+
+    this.notes.push(note);
+    this.notes.sort((pre, next) => {
+      return pre.time - next.time;
+    })
+
+    this.notificationService.setNotification(note);
+
+    console.log(note);
+    return;
+
+    // this.dataStorageService.addNote(note);
+
+    // this.notes.push(note);
+    // this.notes = this.dataStorageService.getNotes();
+    // this.notes.sort((pre, next) => next.time - pre.time)
+
+    // console.log(note);
+  }
+
+
+  getLastestNote() {
+    return this.notes[0];
   }
 }

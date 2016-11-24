@@ -1,10 +1,8 @@
 import { Injectable } from "@angular/core";
 
 @Injectable()
-export class DateService
-{
-	getDatesInMonth(month: Date)
-	{
+export class DateService {
+	getDatesInMonth(month: Date) {
 		let firstDay = this.firstDayInMonth(month);
 		let lastDay = this.lastDayInMonth(month);
 		let weeks = [];
@@ -12,26 +10,21 @@ export class DateService
 		let week = [];
 
 		let firstDayWeekday = firstDay.getDay();
-		for (let i = 0; i < firstDayWeekday; ++i)
-		{
+		for (let i = 0; i < firstDayWeekday; ++i) {
 			week.push(undefined);
 		}
 
 		let daysInMonth = lastDay.getDate();
-		for (let date = 1; date <= daysInMonth; ++date)
-		{
+		for (let date = 1; date <= daysInMonth; ++date) {
 			week.push(date);
-			if (week.length > 6)
-			{
+			if (week.length > 6) {
 				weeks.push(week);
 				week = [];
 			}
 		}
 
-		if (week.length != 0)
-		{
-			while (week.length < 7)
-			{
+		if (week.length != 0) {
+			while (week.length < 7) {
 				week.push(undefined);
 			}
 
@@ -41,23 +34,19 @@ export class DateService
 		return weeks;
 	}
 
-	private lastDayInMonth(month: Date)
-	{
+	private lastDayInMonth(month: Date) {
 		return new Date(month.getFullYear(), month.getMonth() + 1, 0);
 	}
 
-	private firstDayInMonth(month: Date)
-	{
+	private firstDayInMonth(month: Date) {
 		return new Date(month.getFullYear(), month.getMonth(), 1);
 	}
 
-	getPreviousMonth(date: Date)
-	{
+	getPreviousMonth(date: Date) {
 		return new Date(date.getFullYear(), date.getMonth() - 1);
 	}
 
-	getNextMonth(date: Date)
-	{
+	getNextMonth(date: Date) {
 		return new Date(date.getFullYear(), date.getMonth() + 1);
 	}
 }
