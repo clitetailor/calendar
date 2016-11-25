@@ -1,6 +1,6 @@
 export interface Note {
-	title: String,
-	description: String,
+	title: string,
+	description: string,
 	time: Date,
-	tag: String
+	tag: string
 }

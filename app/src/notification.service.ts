@@ -15,6 +15,12 @@ export class NotificationService {
 		},
 			deltaTime = note.time.getTime() - new Date().getTime();
 
+		if (note.description) {
+			Object.assign(notification, {
+				message: note.description.length < 50 ? note.description : `${note.description.substr(0, 50)}...`
+			})
+		}
+
 		clearTimeout(this.timeout);
 		this.timeout = setTimeout(() => {
 			notifier.notify(notification);
