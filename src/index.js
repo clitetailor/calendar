@@ -7,12 +7,11 @@ const Menu = electron.Menu;
 const Tray = electron.Tray;
 const BrowserWindow = electron.BrowserWindow;
 
-const storage = require('./storage.js')
+const storage = require('./main/storage.js')
 const getNotes = storage.getNotes;
 const addNote = storage.addNotes;
 
 let appIcon = null;
-
 
 let win;
 let startScr;
@@ -32,14 +31,8 @@ function createWindow ()
 	});
 }
 
-
-function createStartScr() {
-	startScr = new BrowserWindow({width: 256, height: 256, frame: false})
-	startScr.loadURL(`file://${__dirname}/calendar.png`)
-}
-
 function putInTray() {
-	const iconName = './app/calendar.png';
+	const iconName = './icon.png';
 	const iconPath = path.resolve(iconName);
 	appIcon = new Tray(iconPath)
 
@@ -71,11 +64,7 @@ function putInTray() {
 
 app.on('ready', () => {
 	putInTray()
-	createStartScr()
-	setTimeout(() => {
-		createWindow();
-		startScr.close();
-	}, 1000);
+	createWindow()
 });
 
 app.on('window-all-closed', () =>

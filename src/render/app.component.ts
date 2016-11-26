@@ -8,9 +8,9 @@ import { Note } from './note';
 
 @Component({
   selector: 'my-app',
-  templateUrl: "src/app.component.html",
+  template: require("./app.component.html"),
   styleUrls: [
-    "src/app.component.css"
+    "./app.component.css"
   ]
 })
 export class AppComponent implements OnInit {
@@ -65,7 +65,7 @@ export class AppComponent implements OnInit {
   noteFilter: String = 'general/all';
 
   getNotes() {
-    this.notes = this.dataStorageService.getNotes().sort((pre, next) => pre.time - next.time);
+    
   }
 
   addNote(note) {
