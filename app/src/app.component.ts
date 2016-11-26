@@ -65,7 +65,7 @@ export class AppComponent implements OnInit {
   noteFilter: String = 'general/all';
 
   getNotes() {
-    this.notes = this.dataStorageService.getNotes().sort((pre, next) => pre.time - next.time);
+    
   }
 
   addNote(note) {

@@ -2,8 +2,7 @@ import { Injectable } from '@angular/core';
 import { remote } from 'electron';
 
 @Injectable()
-export class DataStorageService {
-
+export class NoteService {
 	private extractData(doc) {
 		
 	}

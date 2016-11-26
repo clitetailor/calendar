@@ -6,8 +6,6 @@ let webpack = require('webpack');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
 
-let helpers = require('./config/helpers');
-
 
 module.exports = {
     devtool: 'source-map',
@@ -17,6 +15,21 @@ module.exports = {
 
     entry: {
         'app': './app/src/main.ts'
+        // 'vendor': [
+        //   "reflect-metadata",
+        //   "rxjs",
+        //   "zone.js",
+        //   "@angular/common",
+        //   "@angular/compiler",
+        //   "@angular/core",
+        //   "@angular/forms",
+        //   "@angular/http",
+        //   "@angular/material",
+        //   "@angular/platform-browser",
+        //   "@angular/platform-browser-dynamic",
+        //   "@angular/router",
+        //   "@angular/upgrade",
+        // ] 
     },
 
     output: {
@@ -48,12 +61,12 @@ module.exports = {
       },
       {
         test: /\.css$/,
-        exclude: helpers.root('src', 'app'),
+        exclude: path.resolve('./app/src'),
         loader: ExtractTextPlugin.extract('style', 'css?sourceMap')
       },
       {
         test: /\.css$/,
-        include: helpers.root('src', 'app'),
+        include: path.resolve('./app/src'),
         loader: 'raw'
       }
     ]

@@ -7,7 +7,7 @@ const Menu = electron.Menu;
 const Tray = electron.Tray;
 const BrowserWindow = electron.BrowserWindow;
 
-const storage = require('./storage.js')
+const storage = require('./stuff/storage.js')
 const getNotes = storage.getNotes;
 const addNote = storage.addNotes;
 

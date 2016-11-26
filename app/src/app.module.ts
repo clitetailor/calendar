@@ -5,13 +5,13 @@ import { HttpModule } from '@angular/http';
 
 import { AppComponent } from './app.component';
 import { DateService } from './date.service';
-import { DataStorageService } from './data-storage.service';
+import { NoteService } from './note.service';
 import { NotificationService } from './notification.service';
 
 @NgModule({
   imports: [BrowserModule, FormsModule, HttpModule],
   declarations: [AppComponent],
-  providers: [DateService, DataStorageService, NotificationService],
+  providers: [DateService, NoteService, NotificationService],
   bootstrap: [AppComponent]
 })
 export class AppModule {
