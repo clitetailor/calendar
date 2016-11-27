@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { remote } from 'electron';
+import { remote, ipcRenderer } from 'electron';
 
 @Injectable()
 export class DataStorageService {
@@ -9,7 +9,10 @@ export class DataStorageService {
 	}
 
 	getNotes() {
-		
+		ipcRenderer.send('get-notes');
+		ipcRenderer.on('notes-reply', () => {
+			
+		})
 	}
 
 	addNote(note) {

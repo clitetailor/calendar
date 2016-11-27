@@ -1,7 +1,7 @@
 const path = require('path');
 const NeDB = require('nedb');
 const db = new NeDB({
-	filename: path.resolve('./storage'),
+	filename: path.resolve('./data/index'),
 	autoload: true
 });
 

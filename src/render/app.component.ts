@@ -21,7 +21,7 @@ export class AppComponent implements OnInit {
   tags = [];
 
   constructor(private dateService: DateService, private dataStorageService: DataStorageService, private notificationService: NotificationService) {
-
+    console.log(this.dataStorageService.getNotes().then)
   }
 
   ngOnInit() {
