@@ -13,7 +13,7 @@
 			<div class="action" (click)="previousMonth()">
 				<i class="material-icons">keyboard_arrow_left</i>
 			</div>
-			<div class="month-year">{{month | date: "MMMM y"}}</div>
+			<div class="month-year">{{selectedDay | date: "MMMM y"}}</div>
 			<div class="action" (click)="nextMonth()">
 				<i class="material-icons">keyboard_arrow_right</i>
 			</div>
@@ -28,12 +28,18 @@
 				</div>
 			</div>
 			<div class="body">
-				<div class="row" *ngFor="let week of datesInMonth">
-					<div class="day" *ngFor="let day of week" [class.visible]="day">
+				<div class="row" *ngFor="let week of month">
+					<div class="day" *ngFor="let day of week" [class.visible]="day" [class.selected]="day==selectedDay.getDate()" (click)="select(day)">
 						<span class="button">{{day}}</span>
 					</div>
 				</div>
 			</div>
+		</div>
+
+		<div class="tags" >
+			<div class="tag">All</div>
+			<div class="tag">Weekly</div>
+			<div class="tag">Monthly</div>
 		</div>
 
 	</div>

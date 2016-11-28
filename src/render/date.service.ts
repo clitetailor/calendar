@@ -9,26 +9,29 @@ export class DateService {
 
 		let week = [];
 
-		let firstDayWeekday = firstDay.getDay();
-		for (let i = 0; i < firstDayWeekday; ++i) {
+		let firstWeekday = firstDay.getDay();
+		for (let i = 0; i < firstWeekday; ++i) {
 			week.push(undefined);
 		}
 
-		let daysInMonth = lastDay.getDate();
-		for (let date = 1; date <= daysInMonth; ++date) {
+		let numberOfDays = lastDay.getDate();
+		for (let date = 1; date <= numberOfDays; ++date) {
 			week.push(date);
 			if (week.length > 6) {
 				weeks.push(week);
 				week = [];
 			}
 		}
-
+		
 		if (week.length != 0) {
 			while (week.length < 7) {
 				week.push(undefined);
 			}
-
 			weeks.push(week);
+		}
+
+		while (weeks.length < 6) {
+			weeks.push(Array.from({ length: 7 }, (v, k) => undefined));
 		}
 
 		return weeks;
@@ -42,11 +45,11 @@ export class DateService {
 		return new Date(month.getFullYear(), month.getMonth(), 1);
 	}
 
-	getPreviousMonth(date: Date) {
+	previousMonth(date: Date) {
 		return new Date(date.getFullYear(), date.getMonth() - 1);
 	}
 
-	getNextMonth(date: Date) {
+	nextMonth(date: Date) {
 		return new Date(date.getFullYear(), date.getMonth() + 1);
 	}
 }

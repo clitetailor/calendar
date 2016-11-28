@@ -4,10 +4,11 @@ import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 
 import { MayCover } from './may-cover.directive';
+import { HorizontalScroll } from './horizontal-scroll.directive';
 
 @NgModule({
 	imports: [HttpModule],
-	declarations: [MayCover],
+	declarations: [MayCover, HorizontalScroll],
 	exports: [MayCover]
 })
 

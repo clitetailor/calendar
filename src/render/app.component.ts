@@ -8,92 +8,41 @@ import { Note } from './note';
 @Component({
   selector: 'may-app',
   template: require("./app.component.html"),
-  styleUrls: [
-    "./app.component.css"
-  ]
+  styleUrls: ["./app.component.css"]
 })
 export class AppComponent implements OnInit {
   today = new Date();
-
   weekdays = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
-  datesInMonth: number[][];
-  month: Date;
-
-  tags = [];
+  month: number[][];
+  selectedDay: Date;
 
   constructor(private dateService: DateService, private notificationService: NotificationService) {
-
-  }
-
-  ngOnInit() {
-    this.getDatesInMonth(new Date());
-  }
-
-  previousMonth() {
-    this.getDatesInMonth(this.dateService.getPreviousMonth(this.month));
-  }
-
-  nextMonth() {
-    this.getDatesInMonth(this.dateService.getNextMonth(this.month));
-  }
-
-  getDatesInMonth(date: Date) {
-    this.month = date;
-    this.datesInMonth = this.dateService.getDatesInMonth(date);
-  }
-
-
-  view = "calendar";
-
-  toggleCalendar() {
-    this.view = "calendar";
-  }
-
-  toggleSchedule() {
-    this.view = "timeline";
-  }
-
-
-  edit = false;
-
-  toggleEditor() {
-    this.edit = true;
-  }
-
-
-
-  notes = [];
-  noteFilter: String = 'general/all';
-
-  getNotes() {
     
   }
 
-  addNote(note) {
-    let currentTime = new Date();
-
-    note = {
-      title: note.title,
-      description: note.description,
-      time: new Date(note.year || currentTime.getFullYear(),
-        note.month || currentTime.getMonth(),
-        note.day || currentTime.getDate(),
-        note.hours || 24,
-        note.minutes || 0),
-      tag: note.tag
-    }
-
-    this.notes.push(note);
-    this.notes.sort((pre, next) => {
-      return pre.time - next.time;
-    })
-
-    this.notificationService.setNotification(note);
-    return;
+  ngOnInit() {
+    this.select(new Date);
   }
 
+  previousMonth() {
+    this.select(this.dateService.previousMonth(this.selectedDay));
+  }
 
-  getLastestNote() {
-    return this.notes[0];
+  nextMonth() {
+    this.select(this.dateService.nextMonth(this.selectedDay));
+  }
+
+  select(day: Date | number) {
+    if (day instanceof Date) {
+      this.selectedDay = day;
+      this.month = this.dateService.getDatesInMonth(day);
+    } else if (typeof day == "number") {
+      let year = this.selectedDay.getFullYear(),
+          month = this.selectedDay.getMonth();
+
+      this.select(new Date(year, month, day))
+    } else {
+
+    }
   }
 }

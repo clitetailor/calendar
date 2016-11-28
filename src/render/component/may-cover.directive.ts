@@ -16,10 +16,6 @@ import { Directive, HostBinding } from '@angular/core';
 
 export class MayCover {
 	@HostBinding('style.marginTop.%') marginTop: number = 0;
-	
-	constructor() {
-		
-	}
 
 	open() {
 		this.marginTop = 0;
