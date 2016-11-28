@@ -46,6 +46,7 @@
 	transition: 0.5s ease-in !important;
 	background: #7ac143;
 
+	cursor: pointer;
 	user-select: none;
 	-webkit-user-select: none;
 }
@@ -65,7 +66,7 @@
 	font-size: 56px;
 
 	text-align: center;
-	cursor: default;
+	cursor: inherit;
 }
 
 .may-cover .date {
@@ -74,7 +75,7 @@
 	font-size: 160px;
 
 	text-align: center;
-	cursor: default;
+	cursor: inherit;
 
 	margin-bottom: 30px;
 }
@@ -118,7 +119,7 @@
 	flex-flow: row wrap;
 }
 
-.container.may-main {
+.container.main {
 	align-items: stretch;
 }
 
@@ -128,11 +129,11 @@
 
 .container .left {
 	display: flex;
-	flex-direction: row;
-	justify-content: center;
+	align-items: center;
+	flex-direction: column;
 
-	background: lightseagreen;
-	box-shadow: 0 0 5px lightseagreen;
+	background: dodgerblue;
+	box-shadow: 0 0 5px dodgerblue;
 	z-index: 2;
 }
 
@@ -142,8 +143,157 @@
 
 /*background: #fbf4dd;*/
 
-/**/
 
+
+/*May Calendar*/
+/*.may-calendar-heading*/
+
+.may-calendar-heading {
+	display: flex;
+	justify-content: center;
+
+	width: 100%;
+	max-width: 540px;
+
+	margin-bottom: 36px;
+	margin-top: 10%;
+
+	padding-left: 80px;
+	padding-right: 80px;
+
+	color: white;
+	z-index: 2;
+}
+
+.may-calendar-heading .action {
+	display: flex;
+	flex: 0 0 45px;
+	justify-content: center;
+	align-items: center;
+
+	width: 45px;
+	height: 45px;
+
+	cursor: pointer;
+	text-align: center;
+	user-select: none;
+	-webkit-user-select: none;
+
+	transition: background 0.05s;
+}
+
+.may-calendar-heading .action:hover {
+	color: gray;
+	background-color: white;
+}
+
+.may-calendar-heading .action i {
+	font-size: 40px;
+}
+
+.may-calendar-heading .month-year {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	
+	height: 45px;
+	margin: 0 36px;
+	
+	font-size: 28px;
+	text-align: center;
+	font-family: Cambria, Cochin, Georgia, Times, Times New Roman, serif;
+}
+
+/*.may-calendar-body*/
+
+.may-calendar-body {
+	display: block;
+	margin: 0 auto;
+
+	text-align: center;
+	width: 100%;
+	max-width: 540px;
+
+	z-index: 1;
+}	
+
+.may-calendar-body .head, .may-calendar-body .body {
+	width: 100%;
+}
+
+/*.may-calendar-body .head*/
+
+.may-calendar-body .head  {
+	cursor: default;
+	user-select: none;
+	-webkit-user-select: none;
+}
+
+.may-calendar-body .head .row {
+	display: flex;
+	justify-content: center;
+	width: 100%;
+}
+
+.may-calendar-body .head .row .weekday {
+	display: flex;
+	flex: 1;
+
+	justify-content: center;
+
+	color: white;
+	font-size: 16px;
+	font-weight: bold;
+	font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+/*.may-calendar-body .body*/
+
+.may-calendar-body .body {
+	padding-top: 10px;
+	padding-bottom: 10px;
+}
+
+.may-calendar-body .body .row {
+	display: flex;
+	justify-content: center;
+	width: 100%;
+}
+
+.may-calendar-body .body .row .day {
+	display: flex;
+	flex: 1;
+	justify-content: center;
+
+	color: white;
+	font-family: Lato;
+	font-size: 16px;
+
+	user-select: none;
+	-webkit-user-select: none;
+	cursor: pointer;
+
+	transition: transform 0.1s;
+}
+
+.may-calendar-body .body .row .day .button {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	
+	width: 36px;
+	height: 36px;
+	border-radius: 3px;
+}
+
+.may-calendar-body .body .row .day .button:hover {
+	color: gray;
+	background-color: white;
+}
+
+
+/**/
+/*
 .side-nav
 {
 	position: fixed;
@@ -319,152 +469,18 @@
 	flex-direction: row;
 }
 
-	.banner.upper-banner
-	{
-		padding: 10px 40px;
-		box-shadow: 0 2px 5px rgba(0, 0, 0, 0.4);
+.banner.upper-banner
+{
+	padding: 10px 40px;
+	box-shadow: 0 2px 5px rgba(0, 0, 0, 0.4);
 
-		background: lightseagreen;
+	background: lightseagreen;
 
-		z-index: 3;
-	}
+	z-index: 3;
+}*/
 
-	.calendar-heading
-	{
-		display: flex;
-		align-items: center;
+/*Banner*/
 
-		flex: 0 0 60px;
-
-		padding-left: 100px;
-		padding-right: 100px;
-		padding-top: 20px;
-
-		color: white;
-		background: gray;
-
-		z-index: 2;
-	}
-
-		.calendar-heading .action
-		{
-			display: inline;
-			flex: 0 0 auto;
-			cursor: pointer;
-
-			font-size: 40px;
-
-			-webkit-user-select: none;
-
-			transition: background 0.05s;
-		}
-
-		.calendar-heading .action:hover
-		{
-			color: gray;
-			background-color: white;
-		}
-
-		.calendar-heading .text
-		{
-			flex: 1 1 auto;
-			text-align: center;
-
-			font-family: Cambria, Cochin, Georgia, Times, Times New Roman, serif;
-			font-size: 28px;
-		}
-
-	table.calendar-body
-	{
-		display: block;
-		border-collapse: collapse;
-
-		text-align: center;
-
-		z-index: 1;
-	}
-		
-		table.calendar-body thead, table.calendar-body tbody
-		{
-			display: flex;
-			flex-direction: column;
-			justify-content: center;
-			align-items: center;
-
-			width: 100%;
-		}
-
-		table.calendar-body thead
-		{
-			background: gray;
-		}
-
-		table.calendar-body tbody
-		{
-			padding-top: 10px;
-			padding-bottom: 10px;
-			background: #444;
-
-			box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.4);
-		}
-
-		table.calendar-body thead tr, table.calendar-body tbody tr
-		{
-			display: flex;
-			flex-direction: row;
-			justify-content: center;
-
-			width: 560px;
-		}
-
-		table.calendar-body thead tr th
-		{
-			display: block;
-			flex: 1 1 0;
-			padding-top: 20px;
-			padding-bottom: 20px;
-
-			color: #444;
-
-			font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-			font-size: 16px;
-			font-weight: bold;
-
-			cursor: default;
-			-webkit-user-select: none;
-		}
-
-		table.calendar-body tbody tr td
-		{
-			display: flex;
-			flex: 1 1 0;
-			padding-top: 16px;
-			padding-bottom: 16px;
-
-			color: white;
-			background: #444;
-
-			font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-			font-size: 16px;
-
-			justify-content: center;
-
-			-webkit-user-select: none;
-			cursor: default;
-
-			transition: transform 0.1s;
-		}
-
-		table.calendar-body tbody tr td .node
-		{
-			height: 20px;
-		}
-
-		table.calendar-body tbody tr td.visible:hover
-		{
-			background: dodgerblue;
-		}
-	
 	.lower-banner
 	{
 		display: flex;

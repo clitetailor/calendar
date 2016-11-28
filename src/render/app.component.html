@@ -5,11 +5,39 @@
 	</div>
 </may-cover>
 
-<div class="container may-main">
+<div class="container main">
 	<div class="left">
+		<!-- left side container -->
+
+		<div class="may-calendar-heading">
+			<div class="action" (click)="previousMonth()">
+				<i class="material-icons">keyboard_arrow_left</i>
+			</div>
+			<div class="month-year">{{month | date: "MMMM y"}}</div>
+			<div class="action" (click)="nextMonth()">
+				<i class="material-icons">keyboard_arrow_right</i>
+			</div>
+		</div>
+
+		<div class="may-calendar-body">
+			<div class="head">
+				<div class="row">
+					<div class="weekday" *ngFor="let weekday of weekdays">
+						{{weekday}}
+					</div>
+				</div>
+			</div>
+			<div class="body">
+				<div class="row" *ngFor="let week of datesInMonth">
+					<div class="day" *ngFor="let day of week" [class.visible]="day">
+						<span class="button">{{day}}</span>
+					</div>
+				</div>
+			</div>
+		</div>
 
 	</div>
 	<div class="right">
-
+		<!-- right side container -->
 	</div>
 </div>

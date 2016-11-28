@@ -63,7 +63,7 @@ function putInTray() {
 
 
 app.on('ready', () => {
-	putInTray()
+	//putInTray()
 	createWindow()
 });
 

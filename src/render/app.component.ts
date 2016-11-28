@@ -29,11 +29,11 @@ export class AppComponent implements OnInit {
     this.getDatesInMonth(new Date());
   }
 
-  onPreviousMonthButtonClick() {
+  previousMonth() {
     this.getDatesInMonth(this.dateService.getPreviousMonth(this.month));
   }
 
-  onNextMonthButtonClick() {
+  nextMonth() {
     this.getDatesInMonth(this.dateService.getNextMonth(this.month));
   }
 
