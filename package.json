@@ -2,9 +2,9 @@
   "name": "calendar",
   "version": "0.1.0",
   "scripts": {
-    "start": "gulp && electron dist/",
-    "build": "webpack --progress --profile --colors --display-error-details --display-cached",
-    "watch": "webpack --watch --progress --profile --colors --display-error-details --display-cached"
+    "start": "electron dist/",
+    "build": "gulp && webpack",
+    "webpack": " --progress --profile --colors --display-error-details --display-cached"
   },
   "dependencies": {
     "@angular/common": "~2.0.2",

@@ -13,21 +13,21 @@ module.exports = {
 
     entry: {
         'render': './src/render/main.ts',
-        'vendor': [
-          "reflect-metadata",
-          "rxjs",
-          "zone.js",
-          "@angular/common",
-          "@angular/compiler",
-          "@angular/core",
-          "@angular/forms",
-          "@angular/http",
-          "@angular/material",
-          "@angular/platform-browser",
-          "@angular/platform-browser-dynamic",
-          "@angular/router",
-          "@angular/upgrade",
-        ]
+        // 'vendor': [
+        //   "reflect-metadata",
+        //   "rxjs",
+        //   "zone.js",
+        //   "@angular/common",
+        //   "@angular/compiler",
+        //   "@angular/core",
+        //   "@angular/forms",
+        //   "@angular/http",
+        //   "@angular/material",
+        //   "@angular/platform-browser",
+        //   "@angular/platform-browser-dynamic",
+        //   "@angular/router",
+        //   "@angular/upgrade",
+        // ]
     },
 
     output: {

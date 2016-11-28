@@ -1,126 +1,15 @@
-<div class="activity-bar">
-	<div class="button">
-		<i class="material-icons">menu</i>
+<may-cover class="may-cover" #cover="cover" (click)="cover.close()">
+	<div class="container">
+		<div class="month">{{today | date: "MMMM"}}</div>
+		<div class="date">{{today | date: "dd"}}</div>
 	</div>
-	<div class="button">
-		<i class="material-icons">settings</i>
-	</div>
-</div>
+</may-cover>
 
-<div class="side-nav" [class.nav]="edit">
-	<div class="row">
-		<div class="column">
-			<div class="list">
-				<div class="heading">General</div>
-				<div class="item">All</div>
-				<div class="item selected">Weakly</div>
-				<div class="item">Monthly</div>
-				<div class="item">Yearly</div>
-			</div>
-
-			<div class="list">
-				<div class="heading">Events</div>
-				<div class="item">Birthdays</div>
-				<div class="item">Events</div>
-			</div>
-
-			<div class="list">
-				<div class="heading">Tags</div>
-				<div *ngFor="let tag of tags" class="item">
-					{{tag}}
-				</div>
-			</div>
-		</div>
-
-		<div class="column">
-			<form class="calendar-editor" #noteForm="ngForm">
-				<div class="title">Title</div>
-				<input class="input" name="title" ngModel type="text" />
-
-				<div class="title">Description</div>
-				<input class="input" name="description" ngModel type="text" />
-
-				<div class="title">Date</div>
-				<input class="input" name="day" ngModel type="text" />
-				<input class="input" name="month" ngModel type="text" />
-				<input class="input" name="year" ngModel type="text" />
-
-				<div class="title">Time</div>				
-				<input class="input" name="hours" ngModel type="text" />
-				<input class="input" name="minutes" ngModel type="text" />
-				
-				<div class="button-group">
-					<div class="button" (click)="addNote(noteForm.value)">Done</div>
-					<div class="button">Cancel</div>
-				</div>
-			</form>
-		</div>
-	</div>
-</div>
-
-<div class="body">
-	<div class="banner upper-banner">
-
-		<div class="button-group">
-			<div class="button" [class.selected]="view=='calendar'" (click)="toggleCalendar()">
-				<i class="material-icons">date_range</i>
-			</div>
-			<div class="button" [class.selected]="view=='timeline'" (click)="toggleSchedule()">
-				<i class="material-icons">list</i>
-			</div>
-		</div>
+<div class="container may-main">
+	<div class="left">
 
 	</div>
+	<div class="right">
 
-	<div class="main" [ngSwitch]="view">
-		<template [ngSwitchCase]="'calendar'">
-			<div class="calendar-heading">
-				<i class="action material-icons" (click)="onPreviousMonthButtonClick()">keyboard_arrow_left</i>
-
-				<div class="text">{{month | date: "MMMM y"}}</div>
-
-				<i class="material-icons action" (click)="onNextMonthButtonClick()">keyboard_arrow_right</i>
-			</div>
-
-			<table class="calendar-body">
-				<thead class="heading">
-					<tr>
-						<th *ngFor="let day of weekdays">
-							{{day}}
-						</th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr *ngFor="let week of datesInMonth">
-						<td *ngFor="let day of week" [class.visible]="day">
-							<div class="node">{{day}}</div>
-						</td>
-					</tr>
-				</tbody>
-			</table>
-
-			<div class="banner lower-banner">
-				<div class="button raised-button" (click)="toggleEditor()">
-					<i class="material-icons">add</i>
-				</div>
-			</div>
-
-			<div class="timeline">
-				<div class="column">
-
-					<template ngFor let-note [ngForOf]="notes">
-						<div class="card">
-							<div class="time">{{note.time | date: "hh:mm"}}</div>
-							<div class="title">{{note.title}}</div>
-						</div>
-					</template>
-
-				</div>
-			</div>
-		</template>
-
-		<template [ngSwitchCase]="'timeline'">
-
-		</template>
 	</div>
 </div>

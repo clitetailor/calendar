@@ -1,27 +1,28 @@
 import { Component, OnInit } from '@angular/core';
 
 import { DateService } from './date.service';
-import { DataStorageService } from './data-storage.service';
 import { NotificationService } from './notification.service';
 
 import { Note } from './note';
 
 @Component({
-  selector: 'my-app',
+  selector: 'may-app',
   template: require("./app.component.html"),
   styleUrls: [
     "./app.component.css"
   ]
 })
 export class AppComponent implements OnInit {
+  today = new Date();
+
   weekdays = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
   datesInMonth: number[][];
   month: Date;
 
   tags = [];
 
-  constructor(private dateService: DateService, private dataStorageService: DataStorageService, private notificationService: NotificationService) {
-    console.log(this.dataStorageService.getNotes().then)
+  constructor(private dateService: DateService, private notificationService: NotificationService) {
+
   }
 
   ngOnInit() {

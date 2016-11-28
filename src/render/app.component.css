@@ -1,74 +1,148 @@
-@font-face
-{
+/*Material Icons*/
+
+@font-face {
 	font-family: 'Material Icons';
 	font-style: normal;
 	font-weight: 400;
 	src: url('./MaterialIcons-Regular.ttf');
 }
 
-	.material-icons {
-		font-family: 'Material Icons';
-		font-weight: normal;
-		font-style: normal;
-		font-size: 24px;
-		display: inline-block;
-		line-height: 1;
-		text-transform: none;
-		letter-spacing: normal;
-		word-wrap: normal;
-		white-space: nowrap;
-		direction: ltr;
+.material-icons {
+	font-family: 'Material Icons';
+	font-weight: normal;
+	font-style: normal;
+	font-size: 24px;
+	display: inline-block;
+	line-height: 1;
+	text-transform: none;
+	letter-spacing: normal;
+	word-wrap: normal;
+	white-space: nowrap;
+	direction: ltr;
 
-		-webkit-font-smoothing: antialiased;
+	-webkit-font-smoothing: antialiased;
 
-		text-rendering: optimizeLegibility;
+	text-rendering: optimizeLegibility;
 
-		-moz-osx-font-smoothing: grayscale;
+	-moz-osx-font-smoothing: grayscale;
 
-		font-feature-settings: 'liga';
-	}
+	font-feature-settings: 'liga';
+}
 
-.activity-bar
-{
-	position: fixed;
+/*Host style*/
 
-	top: 0;
-	left: 0;
-	bottom: 0;
+:host {
+	display: flex;
+	position: absolute;
+	top: 0; left: 0; right: 0; bottom: 0;
+	flex-wrap: wrap;
+	align-items: stretch;
+}
 
-	width: 64px;
+/*Features' style*/
+/*.may-cover*/
 
-	background: #111;
+.may-cover {
+	transition: 0.5s ease-in !important;
+	background: #7ac143;
 
-	border-right: 1px solid #333;
+	user-select: none;
+	-webkit-user-select: none;
+}
 
+.may-cover .container {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+
+	width: 100%;
+	height: 100%;
+}
+
+.may-cover .month {
+	color: white;
+	font-family: Lato Light;
+	font-size: 56px;
+
+	text-align: center;
+	cursor: default;
+}
+
+.may-cover .date {
+	color: white;
+	font-family: Lato;
+	font-size: 160px;
+
+	text-align: center;
+	cursor: default;
+
+	margin-bottom: 30px;
+}
+
+/*May Activity Bar*/
+
+.activity-bar {
+	width: 48px;
+	background: white;
 	z-index: 3;
 }
 
-	.activity-bar .button
-	{
-		display: flex;
-		align-items: center;
-		justify-content: center;
+.activity-bar .button {
+	display: flex;
+	align-items: center;
+	justify-content: center;
 
-		width: 64px;
-		height: 64px;
+	width: 48px;
+	height: 48px;
 
-		color: white;
-		border-bottom: 1px solid #333;
-		
-		cursor: default;
-	}
+	color: white;
+	cursor: default;
+}
 
-	.activity-bar .button:hover
-	{
-		background-color: lightseagreen;
-	}
+.activity-bar .button:hover {
+	background-color: orange;
+}
 
-	.activity-bar .button i
-	{
-		-webkit-user-select: none;
-	}
+.activity-bar .button i {
+	color: #333;
+
+	user-select: none;
+	-webkit-user-select: none;
+}
+
+/*Container*/
+
+.container {
+	display: flex;
+	width: 100%;
+	flex-flow: row wrap;
+}
+
+.container.may-main {
+	align-items: stretch;
+}
+
+.container .left, .container .right {
+	flex: 1;
+}
+
+.container .left {
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+
+	background: lightseagreen;
+	box-shadow: 0 0 5px lightseagreen;
+	z-index: 2;
+}
+
+.container .right {
+	background: white;
+}
+
+/*background: #fbf4dd;*/
+
+/**/
 
 .side-nav
 {
@@ -78,10 +152,10 @@
 	bottom: 0;
 
 	width: 320px;
-	
+
 	color: white;
 	background-color: #222;
-	
+
 	box-shadow: 2px 0 3px rgba(0, 0, 0, 0.4);
 
 	overflow: hidden;
@@ -89,102 +163,103 @@
 	z-index: 2;
 }
 
-	.side-nav .row
-	{
-		width: 200%;
-	}
+.side-nav .row
+{
+	width: 200%;
+}
 
-	.side-nav.nav .row
-	{
-		margin-left: -100%;
-	}
+.side-nav.nav .row
+{
+	margin-left: -100%;
+}
 
-	.side-nav .column
-	{
-		display: block;
-		width: 50%;
-		float: left;
-	}
+.side-nav .column
+{
+	display: block;
+	width: 50%;
+	float: left;
+}
 
-		.side-nav .column::-webkit-scrollbar
-		{
-			border: 1px solid #444;;
-		}
+.side-nav .column::-webkit-scrollbar
+{
+	border: 1px solid #444;;
+}
 
-		.side-nav .column:hover::-webkit-scrollbar-thumb
-		{
-			background: rgba(255, 255, 255, 0.1);
-		}
+.side-nav .column:hover::-webkit-scrollbar-thumb
+{
+	background: rgba(255, 255, 255, 0.1);
+}
 
-	.side-nav .list:not(:first-child)
-	{
-		margin-top: 30px;
-	}
+.side-nav .list:not(:first-child)
+{
+	margin-top: 30px;
+}
 
-		.side-nav .list .heading
-		{
-			padding: 10px 20px 6px 20px;
+.side-nav .list .heading
+{
+	padding: 10px 20px 6px 20px;
 
-			font-family: Arial;
-			font-size: 12px;
+	font-family: Arial;
+	font-size: 12px;
 
-			color: #ddd;
-			font-weight: bold;
-			
-			border-bottom: 1px solid #666;
-		}
+	color: #ddd;
+	font-weight: bold;
+	
+	border-bottom: 1px solid #666;
+}
 
-		.side-nav .list .item
-		{
-			position: relative;
-			padding: 10px 40px;
+.side-nav .list .item
+{
+	position: relative;
+	padding: 10px 40px;
 
-			font-family: Calibri Light;
+	font-family: Calibri Light;
 
-			color: #adadad;
+	color: #adadad;
 
-			cursor: pointer;
-		}
-		
-		.side-nav .list .item:hover
-		{
-			background: dodgerblue;
-			color: white;
-		}
+	cursor: pointer;
+}
 
-		.side-nav .list .item.selected
-		{
-			color: orange;
-		}
+.side-nav .list .item:hover
+{
+	background: dodgerblue;
+	color: white;
+}
 
-		.side-nav .list .item.selected::before
-		{
-			content: "";
-			position: absolute;
-			top: 0px;
-			bottom: 0px;
-			left: 0px;
+.side-nav .list .item.selected
+{
+	color: orange;
+}
 
-			width: 4px;
-			background-color: orange;
-		}
+.side-nav .list .item.selected::before
+{
+	content: "";
+	position: absolute;
+	top: 0px;
+	bottom: 0px;
+	left: 0px;
 
-		.side-nav .list .item.selected::after
-		{
-			content: "";
-			position: absolute;
-			top: 0px;
-			bottom: 0px;
-			left: 0px;
-			right: 0;
-		}
+	width: 4px;
+	background-color: orange;
+}
 
-		.side-nav .list .item.selected:hover
-		{
-			background: orange;
-			color: #222;
-			font-weight: bold;
-		}
+.side-nav .list .item.selected::after
+{
+	content: "";
+	position: absolute;
+	top: 0px;
+	bottom: 0px;
+	left: 0px;
+	right: 0;
+}
+
+.side-nav .list .item.selected:hover
+{
+	background: orange;
+	color: #222;
+	font-weight: bold;
+}
+
 
 
 .button-group
