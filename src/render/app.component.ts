@@ -45,4 +45,6 @@ export class AppComponent implements OnInit {
 
     }
   }
+
+  selectedTag: String = "All";
 }

@@ -9,7 +9,7 @@ import { HorizontalScroll } from './horizontal-scroll.directive';
 @NgModule({
 	imports: [HttpModule],
 	declarations: [MayCover, HorizontalScroll],
-	exports: [MayCover]
+	exports: [MayCover, HorizontalScroll]
 })
 
 export class FeatureModule {

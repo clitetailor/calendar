@@ -1,4 +1,4 @@
-import { Directive, HostBinding, HostListener } from '@angular/core';
+import { Directive, HostBinding, HostListener, ElementRef } from '@angular/core';
 
 @Directive({
 	selector: '[hrz-scroll]',
@@ -6,9 +6,22 @@ import { Directive, HostBinding, HostListener } from '@angular/core';
 })
 
 export class HorizontalScroll {
+	constructor(private elementRef: ElementRef) {
+
+	}
+
 	@HostBinding('scrollLeft') scrollLeft: number = 0;
 
-	@HostListener('mousewheel') onMouseWheel(event) {
-		console.log(event);
+	@HostListener('mousewheel', ['$event']) onMouseWheel(event) {
+		let scrollWidth = this.elementRef.nativeElement.scrollWidth,
+			delta = event.deltaY + event.deltaX;
+
+		if (this.scrollLeft < 0 && delta < 0) {
+			
+		} else if (this.scrollLeft > scrollWidth && delta > 0) {
+			
+		} else {
+			this.scrollLeft += delta;
+		}
 	}
 }

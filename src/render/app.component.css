@@ -45,8 +45,8 @@
 .may-cover {
 	transition: 0.5s ease-in !important;
 	background: #7ac143;
-
-	cursor: pointer;
+	
+	cursor: crosshair;
 	user-select: none;
 	-webkit-user-select: none;
 }
@@ -132,8 +132,8 @@
 	align-items: center;
 	flex-direction: column;
 
-	background: dodgerblue;
-	box-shadow: 0 0 5px dodgerblue;
+	background: yellowgreen;
+	box-shadow: 0 0 5px yellowgreen;
 	z-index: 2;
 }
 
@@ -142,8 +142,6 @@
 }
 
 /*background: #fbf4dd;*/
-
-
 
 /*May Calendar*/
 /*.may-calendar-heading*/
@@ -200,6 +198,9 @@
 	
 	height: 45px;
 	margin: 0 36px;
+
+	user-select: none;
+	-webkit-user-select: none;
 	
 	font-size: 28px;
 	text-align: center;
@@ -313,30 +314,44 @@
 	
 	margin-top: 45px;
 	width: 100%;
-	height: 30px;
 	max-width: 540px;
+	overflow-x: hidden;
 	overflow-y: hidden;
 }
 
 .tags .tag {
+	display: flex;
 	flex: 0 0 auto;
-	padding: 0 10px;
-	height: 100%;
+	align-items: center;
+	margin: 0 3px;
+	padding: 3px 10px;
 
 	color: white;
 	font-size: 14px;
 	font-family: Lato;
 	cursor: pointer;
-
-	-webkit-transition: transform 0.5s;
-	-moz-transition: transform 0.5s;
-	transition: transform 0.5s;
 }
 
 .tags .tag:hover {
-	transform: scale(1.3);
+	background: rgba(0, 0, 0, 0.2);
 }
 
+.tags .tag.selected {
+	color: gray;
+	background: white;
+}
+
+.tags .tag.selected:hover {
+	color: gray;
+	background: white;
+}
+
+.tags .slash {
+	display: block;
+	margin: 0 2px;
+	width: 2px;
+	background: rgba(255, 255, 255, 0.2);
+}
 
 /**/
 /*
@@ -608,8 +623,8 @@
 
 		font-weight: bold;
 		font-size: 16;
-
 		color: dodgerblue;
+
 		border-right: 1px solid #666;
 	}
 

@@ -36,14 +36,17 @@
 			</div>
 		</div>
 
-		<div class="tags" >
-			<div class="tag">All</div>
-			<div class="tag">Weekly</div>
-			<div class="tag">Monthly</div>
-		</div>
+		<div class="tags" hrz-scroll>
+			<div [class.selected]="selectedTag=='All'" class="tag">All</div>
+			<div [class.selected]="selectedTag=='Weakly'" class="tag">Weekly</div>
+			<div [class.selected]="selectedTag=='Monthly'" class="tag">Monthly</div>
 
+			<div class="slash"></div>
+		</div>
 	</div>
 	<div class="right">
 		<!-- right side container -->
+
+		
 	</div>
 </div>
