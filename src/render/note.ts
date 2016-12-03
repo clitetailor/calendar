@@ -1,6 +1,6 @@
 export interface Note {
-	title: string,
-	description: string,
-	time: Date,
-	tag: string
+	title: String;
+	tag: String;
+	frequency: String;
+	date: Date;
 }

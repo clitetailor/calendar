@@ -7,10 +7,12 @@ import { FeatureModule } from './component/feature.module';
 import { AppComponent } from './app.component';
 import { DateService } from './date.service';
 import { NotificationService } from './notification.service';
+import { SortByDate } from './sort-by-date.pipe';
+import { NoteFilter } from './note-filter.pipe';
 
 @NgModule({
   imports: [BrowserModule, FormsModule, HttpModule, FeatureModule],
-  declarations: [AppComponent],
+  declarations: [AppComponent, SortByDate, NoteFilter],
   providers: [DateService, NotificationService],
   bootstrap: [AppComponent]
 })

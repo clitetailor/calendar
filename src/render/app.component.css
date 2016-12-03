@@ -33,10 +33,11 @@
 
 :host {
 	display: flex;
-	position: absolute;
-	top: 0; left: 0; right: 0; bottom: 0;
 	flex-wrap: wrap;
 	align-items: stretch;
+
+	width: 100%;
+	height: 100%;
 }
 
 /*Features' style*/
@@ -80,47 +81,20 @@
 	margin-bottom: 30px;
 }
 
-/*May Activity Bar*/
-
-.activity-bar {
-	width: 48px;
-	background: white;
-	z-index: 3;
-}
-
-.activity-bar .button {
-	display: flex;
-	align-items: center;
-	justify-content: center;
-
-	width: 48px;
-	height: 48px;
-
-	color: white;
-	cursor: default;
-}
-
-.activity-bar .button:hover {
-	background-color: orange;
-}
-
-.activity-bar .button i {
-	color: #333;
-
-	user-select: none;
-	-webkit-user-select: none;
-}
-
 /*Container*/
 
 .container {
-	display: flex;
 	width: 100%;
-	flex-flow: row wrap;
+	height: 100%;
+	
+	box-sizing: border-box;
 }
 
 .container.main {
+	display: flex;
+	flex-direction: row;
 	align-items: stretch;
+	background: dodgerblue;
 }
 
 .container .left, .container .right {
@@ -128,20 +102,100 @@
 }
 
 .container .left {
-	display: flex;
-	align-items: center;
-	flex-direction: column;
-
-	background: yellowgreen;
-	box-shadow: 0 0 5px yellowgreen;
 	z-index: 2;
 }
 
 .container .right {
-	background: white;
+	position: relative;
+	background: rgba(0, 0, 0, 0.2);
 }
 
 /*background: #fbf4dd;*/
+
+/*May Activity Bar*/
+
+.activity-bar {
+	flex: 0 0 56px;
+	width: 56px;
+	background: #333;
+	z-index: 3;
+
+	border-left: 1px solid #444;
+}
+
+.activity-bar .button {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+
+	position: relative;
+
+	width: 56px;
+	height: 56px;
+
+	border-bottom: 1px solid #444;
+
+	cursor: pointer;
+}
+
+.activity-bar .button:hover i {
+	color: white;
+}
+
+.activity-bar .button i {
+	color: gainsboro;
+
+	user-select: none;
+	-webkit-user-select: none;
+}
+
+/*.date-ribbon*/
+
+/*.date-ribbon {
+	display: flex;
+	padding: 5px 24px;
+}
+
+.date-ribbon .date {
+	flex: 1 1 auto;
+	color: white;
+	font-family: Lato Light;
+	font-size: 24px;
+}
+
+.date-ribbon .time {
+	flex: 0 0 auto;
+	display: inline-block;
+	padding: 3px 8px;
+
+	color: white;
+	font-family: Lato;
+	background: rgba(255, 255, 255, 0.2);
+}*/
+
+/*.action-ribbon*/
+
+/*.action-ribbon {
+	border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+	padding: 5px 24px;
+}
+
+.button-group .button {
+	display: inline-block;
+	padding: 10px;
+	color: gray;
+	border-radius: 3px;
+}
+
+.button-group .button:hover {
+	cursor: pointer;
+}
+
+.button-group .button.selected {
+	color: white;
+	background: #444;
+	box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.4);
+}*/
 
 /*May Calendar*/
 /*.may-calendar-heading*/
@@ -150,14 +204,12 @@
 	display: flex;
 	justify-content: center;
 
+	margin: 0 auto;
 	width: 100%;
 	max-width: 540px;
 
 	margin-bottom: 36px;
 	margin-top: 10%;
-
-	padding-left: 80px;
-	padding-right: 80px;
 
 	color: white;
 	z-index: 2;
@@ -165,12 +217,12 @@
 
 .may-calendar-heading .action {
 	display: flex;
-	flex: 0 0 45px;
+	flex: 0 0 42px;
 	justify-content: center;
 	align-items: center;
 
-	width: 45px;
-	height: 45px;
+	width: 42px;
+	height: 42px;
 
 	cursor: pointer;
 	text-align: center;
@@ -290,6 +342,8 @@
 	justify-content: center;
 	align-items: center;
 	
+	position: relative;
+	
 	width: 36px;
 	height: 36px;
 	border-radius: 3px;
@@ -306,13 +360,21 @@
 	background-color: white;
 }
 
+.may-calendar-body .body .row .day.today .button::after {
+	content: "";
+	display: block;
+	position: absolute;
+	left: 3; right: 3; bottom: 0; height: 3px;
+	background: white;
+}
+
 /*Tags*/
 
 .tags {
 	display: flex;
 	justify-content: flex-start;
 	
-	margin-top: 45px;
+	margin: 48px auto 0 auto;
 	width: 100%;
 	max-width: 540px;
 	overflow-x: hidden;
@@ -353,372 +415,140 @@
 	background: rgba(255, 255, 255, 0.2);
 }
 
-/**/
-/*
-.side-nav
-{
-	position: fixed;
-	top: 0;
-	left: 64px;
-	bottom: 0;
+/*.content*/
 
-	width: 320px;
+.content .date {
+	margin: 20px 0 10px 0;
+	text-align: center;
 
 	color: white;
-	background-color: #222;
-
-	box-shadow: 2px 0 3px rgba(0, 0, 0, 0.4);
-
-	overflow: hidden;
-
-	z-index: 2;
-}
-
-.side-nav .row
-{
-	width: 200%;
-}
-
-.side-nav.nav .row
-{
-	margin-left: -100%;
-}
-
-.side-nav .column
-{
-	display: block;
-	width: 50%;
-	float: left;
-}
-
-.side-nav .column::-webkit-scrollbar
-{
-	border: 1px solid #444;;
-}
-
-.side-nav .column:hover::-webkit-scrollbar-thumb
-{
-	background: rgba(255, 255, 255, 0.1);
-}
-
-.side-nav .list:not(:first-child)
-{
-	margin-top: 30px;
-}
-
-.side-nav .list .heading
-{
-	padding: 10px 20px 6px 20px;
-
-	font-family: Arial;
-	font-size: 12px;
-
-	color: #ddd;
+	font-size: 10px;
 	font-weight: bold;
-	
-	border-bottom: 1px solid #666;
+	font-family: Arial, Helvetica, sans-serif;
+
+	text-transform: uppercase;
 }
 
-.side-nav .list .item
-{
+.content .note {
+	margin: 10px auto;
+	max-width: 540px;
+
 	position: relative;
-	padding: 10px 40px;
 
-	font-family: Calibri Light;
+	box-sizing: border-box;
+	-webkit-box-sizing: border-box;
 
-	color: #adadad;
+	color: white;
+	background: rgba(255, 255, 255, 0.2);
+
+	font-size: 14px;
+	font-family: Arial, Helvetica, sans-serif;
+}
+
+.content .note .time {
+	padding: 10px 20px;
+	font-weight: bold;
+	font-size: 12px;
+}
+
+.content .note .title {
+	padding: 10px 20px;
+}
+
+.content .note .action {
+	position: absolute;
+	top: 5px;
+	right: 5px;
+
+	visibility: hidden;
+	width: 30px;
+	height: 30px;
+
+	border-radius: 50%;
+	display: flex;
+
+	justify-content: center;
+	align-items: center;
+
+	user-select: none;
+	-webkit-user-select: none;
 
 	cursor: pointer;
 }
 
-.side-nav .list .item:hover
-{
-	background: dodgerblue;
+.content .note .action i {
 	color: white;
 }
 
-.side-nav .list .item.selected
-{
-	color: orange;
+.content .note:hover .action {
+	visibility: visible;
 }
 
-.side-nav .list .item.selected::before
-{
-	content: "";
-	position: absolute;
-	top: 0px;
-	bottom: 0px;
-	left: 0px;
-
-	width: 4px;
-	background-color: orange;
+.content .note .action:active {
+	background: rgba(0, 0, 0, 0.1);
 }
 
-.side-nav .list .item.selected::after
-{
-	content: "";
+.content .note .action {
+	color: gray;
+}
+
+
+
+.button-layout {
+	width: 100px;
+	height: 160px;
 	position: absolute;
-	top: 0px;
-	bottom: 0px;
-	left: 0px;
 	right: 0;
-}
-
-.side-nav .list .item.selected:hover
-{
-	background: orange;
-	color: #222;
-	font-weight: bold;
-}
-
-
-
-.button-group
-{
-	color: white;
-}
-
-	.button-group .button
-	{
-		display: inline-block;
-		padding: 10px;
-
-		border-radius: 3px;
-	}
-
-	.button-group .button:hover
-	{
-		background: white;
-		color: #444;
-
-		cursor: pointer;
-	}
-
-	.button-group .button.selected
-	{
-		color: white;
-		background: #444;
-		box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.4);
-	}
-
-
-.body
-{
-	display: flex;
-	flex-direction: column;
-
-	justify-content: flex-start;
-
-	position: fixed;
-
-
-	left: 384px;
-	top: 0;
 	bottom: 0;
+
+	z-index: 10px;
+}
+
+/*Editor*/
+
+.editor {
+	position: absolute;
+	top: 0; left: 0; right: 0; bottom: 0;
+
+	background: white;
+	
+	opacity: 0;
+	visibility: hidden;
+	transition: opacity 0.8s, visibility 0.8s;
+}
+
+.edit {
+	visibility: visible;
+	opacity: 0.98;
+}
+
+/*.dropdown*/
+
+.dropdown {
+	position: absolute;
+	top: 100%;
 	right: 0;
 
-	min-width: 720px;
+	background: white;
 
-	background: tomato;
+	color: gray;
+	font-size: 14px;
+	font-family: Arial, Helvetica, sans-serif;
 
-	z-index: 1;
+	visibility: hidden;
+
+	z-index: 10;
 }
 
-.main
-{
-	flex: 1 1 auto;
-	flex-direction: row;
+.dropdown.dropdown-left {
+	top: 0;
+	right: 100%;
 }
 
-.banner.upper-banner
-{
-	padding: 10px 40px;
-	box-shadow: 0 2px 5px rgba(0, 0, 0, 0.4);
-
-	background: lightseagreen;
-
-	z-index: 3;
-}*/
-
-/*Banner*/
-
-	.lower-banner
-	{
-		display: flex;
-		padding: 20px 40px;
-		justify-content: flex-end;
-	}
-
-		.button.raised-button
-		{
-			padding: 10px;
-
-			background: #444;
-			color: white;
-
-			box-shadow: 0 2px 5px rgba(0, 0, 0, 0.4);
-
-			border-radius: 3px;
-
-			cursor: pointer;
-			-webkit-user-select: none;
-		}
-
-		.button.raised-button:hover
-		{
-			color: #444;
-			background: white;
-		}
-	
-	.timeline
-	{
-		display: flex;
-		position: relative;
-
-		justify-content: center;
-		flex: 1 1 0;
-
-		padding: 0;
-	}
-
-	.timeline .column
-	{
-		overflow-y: auto;
-	}
-
-	.timeline .fixed-box
-	{
-		position: absolute;
-		right: 80px;
-		bottom: 140px;
-	}
-	
-		.timeline .fixed-box .button
-		{
-			padding: 16px;
-		}
-		
-	.timeline .card
-	{
-		display: flex;
-		margin: 0 auto 16px auto;
-		padding: 16px;
-
-		width: 560px;
-		color: white;
-		background: #444;
-
-		box-shadow: 0 2px 5px rgba(0, 0, 0, 0.4);
-
-		font-family: Arial, Helvetica, sans-serif;
-	}
-
-	.timeline .card .time
-	{
-		display: flex;
-		flex-direction: column;
-		justify-content: center;
-
-		flex: 0 0 56px;
-
-		font-weight: bold;
-		font-size: 16;
-		color: dodgerblue;
-
-		border-right: 1px solid #666;
-	}
-
-	.timeline .card .title
-	{
-		flex: 1 1 auto;
-
-		margin-left: 16px;
-	}
-
-.calendar-editor
-{
-	margin: 15px 20px 30px 20px;
+.dropdown > * {
+	padding: 10px 20px;
 }
 
-	.calendar-editor .title
-	{
-		margin-top: 30px;
-		margin-bottom: 5px;
-
-		font-family: Arial;
-		font-size: 12px;
-
-		color: #ddd;
-		font-weight: bold;
-	}
-
-	.calendar-editor .input
-	{
-		margin: 5px auto;
-		padding: 5px;
-
-		background: none;
-		color: white;
-
-		font-size: 16px;
-		font-family: Arial, Helvetica, sans-serif;
-
-		outline: none;
-		border: none;
-		border-bottom: 2px solid #ddd;
-	}
-
-	.calendar-editor .warning
-	{
-		margin-top: 5px;
-		margin-bottom: 5px;
-
-		font-family: Arial, Helvetica, sans-serif;
-		font-size: 12px;
-
-		color: darkred;
-		font-weight: bold;
-	}
-
-	.calendar-editor .input:focus
-	{
-		border-bottom-color: dodgerblue;
-	}
-
-	.calendar-editor .input.short
-	{
-		width: 40px;
-		margin-right: 15px;
-	}
-
-	.calendar-editor .button-group
-	{
-		display: flex;
-		justify-content: flex-end;
-
-		margin: 30px auto;
-	}
-
-		.calendar-editor .button-group .button
-		{
-			padding: 10px 20px;
-
-			margin: 0 5px;
-
-			color: white;
-			font-family: Arial, Helvetica, sans-serif;
-			font-size: 14px;
-			font-weight: bold;
-
-			background: tomato;
-
-			box-shadow: 0 2px 5px rgba(0, 0, 0, 0.4);
-
-			-webkit-user-select: none;
-		}
-
-		.calendar-editor .button-group .button:hover
-		{
-			background: white;
-			color: #444;
-		}
+.dropdown > *:hover {
+	background: rgba(0, 0, 0, 0.1);
+}

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, NgZone } from '@angular/core';
 
 import { DateService } from './date.service';
 import { NotificationService } from './notification.service';
@@ -16,23 +16,27 @@ export class AppComponent implements OnInit {
   month: number[][];
   selectedDay: Date;
 
-  constructor(private dateService: DateService, private notificationService: NotificationService) {
-    
+  constructor(private dateService: DateService, private notificationService: NotificationService, private ngZone: NgZone) {
+    setInterval(() => {
+      this.ngZone.run(() => {
+        this.today = new Date();
+      })
+    }, 1000)
   }
 
   ngOnInit() {
-    this.select(new Date);
+    this.selectDay(new Date);
   }
 
   previousMonth() {
-    this.select(this.dateService.previousMonth(this.selectedDay));
+    this.selectDay(this.dateService.previousMonth(this.selectedDay));
   }
 
   nextMonth() {
-    this.select(this.dateService.nextMonth(this.selectedDay));
+    this.selectDay(this.dateService.nextMonth(this.selectedDay));
   }
 
-  select(day: Date | number) {
+  selectDay(day: Date | number) {
     if (day instanceof Date) {
       this.selectedDay = day;
       this.month = this.dateService.getDatesInMonth(day);
@@ -40,11 +44,28 @@ export class AppComponent implements OnInit {
       let year = this.selectedDay.getFullYear(),
           month = this.selectedDay.getMonth();
 
-      this.select(new Date(year, month, day))
+      this.selectDay(new Date(year, month, day))
     } else {
 
     }
   }
 
   selectedTag: String = "All";
+
+  selectTag(tag: String) {
+    this.selectedTag = tag;
+  }
+
+  notes: Note[] = [{
+    title: "Goto school",
+    tag: "something",
+    frequency: "weekly",
+    date: new Date()
+  }];
+
+  edit: boolean = false;
+
+  toggleEditor() {
+    this.edit = !this.edit;
+  }
 }

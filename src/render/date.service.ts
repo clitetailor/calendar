@@ -46,10 +46,14 @@ export class DateService {
 	}
 
 	previousMonth(date: Date) {
-		return new Date(date.getFullYear(), date.getMonth() - 1);
+		let pre = new Date(date);
+		pre.setMonth(date.getMonth() - 1);
+		return pre;
 	}
 
 	nextMonth(date: Date) {
-		return new Date(date.getFullYear(), date.getMonth() + 1);
+		let next = new Date(date);
+		next.setMonth(date.getMonth() + 1);
+		return next;
 	}
 }

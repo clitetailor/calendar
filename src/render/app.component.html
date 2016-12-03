@@ -8,6 +8,10 @@
 <div class="container main">
 	<div class="left">
 		<!-- left side container -->
+		<!--<div class="date-ribbon">
+			<div class="date">{{today | date: "MMM"}}</div>
+			<div class="time">{{today | date: "hh:mm:ss a"}}</div>
+		</div>-->
 
 		<div class="may-calendar-heading">
 			<div class="action" (click)="previousMonth()">
@@ -29,24 +33,70 @@
 			</div>
 			<div class="body">
 				<div class="row" *ngFor="let week of month">
-					<div class="day" *ngFor="let day of week" [class.visible]="day" [class.selected]="day==selectedDay.getDate()" (click)="select(day)">
+					<div class="day" *ngFor="let day of week" [class.visible]="day" [class.today]="today.getDate()==day && today.getMonth()==selectedDay.getMonth() && today.getFullYear()==selectedDay.getFullYear()" [class.selected]="day==selectedDay.getDate()" (click)="selectDay(day)">
 						<span class="button">{{day}}</span>
+						<span class="tooltip"></span>
 					</div>
 				</div>
 			</div>
 		</div>
 
 		<div class="tags" hrz-scroll>
-			<div [class.selected]="selectedTag=='All'" class="tag">All</div>
-			<div [class.selected]="selectedTag=='Weakly'" class="tag">Weekly</div>
-			<div [class.selected]="selectedTag=='Monthly'" class="tag">Monthly</div>
+			<div [class.selected]="selectedTag=='All'" class="tag" (click)="selectTag('All')">All</div>
+			<div [class.selected]="selectedTag=='Weekly'" class="tag" (click)="selectTag('Weekly')">Weekly</div>
+			<div [class.selected]="selectedTag=='Monthly'" class="tag" (click)="selectTag('Monthly')">Monthly</div>
 
 			<div class="slash"></div>
 		</div>
 	</div>
 	<div class="right">
 		<!-- right side container -->
+		<!--<div class="action-ribbon">
+			<div class="button-group">
+				<div class="button">
+					<i class="material-icons">add</i>
+				</div>
+			</div>
+		</div>-->
 
-		
+		<div class="content">
+			<div *ngFor="let group of notes | sortByDate">
+				<div class="date">{{group.date | date: "EEE MMM dd"}}</div>
+				<div *ngFor="let note of group.notes" class="note">
+					<div class="time">{{note.date | date: "hh:mm a"}}</div>
+					<div class="title">{{note.title}}</div>
+					<div class="action" (click)="action.open($event)">
+						<i class="material-icons">more_vert</i>
+						<div dropdown #action="dropdown" class="dropdown">
+							<div (click)="action.close($event)">Edit</div>
+							<div (click)="action.close($event)">Remove</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="editor" [class.edit]="edit">
+
+		</div>
+	</div>
+
+	<div class="activity-bar">
+		<div class="button" (click)="toggleEditor()">
+			<i class="material-icons">add</i>
+		</div>
+		<div class="button" (click)="menu.open($event)">
+			<i class="material-icons">menu</i>
+			<div dropdown #menu="dropdown" class="dropdown dropdown-left">
+				<div (click)="menu.close($event)">Import</div>
+				<div (click)="menu.close($event)">Export</div>
+			</div>
+		</div>
+		<div class="button" (click)="settings.open($event)">
+			<i class="material-icons">settings</i>
+			<div dropdown class="dropdown dropdown-left" #settings="dropdown">
+				
+			</div>
+		</div>
 	</div>
 </div>
