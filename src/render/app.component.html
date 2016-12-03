@@ -5,7 +5,7 @@
 	</div>
 </may-cover>
 
-<div class="container main">
+<div class="container main" [style.background]="colorTheme">
 	<div class="left">
 		<!-- left side container -->
 		<!--<div class="date-ribbon">
@@ -88,14 +88,14 @@
 		<div class="button" (click)="menu.open($event)">
 			<i class="material-icons">menu</i>
 			<div dropdown #menu="dropdown" class="dropdown dropdown-left">
-				<div (click)="menu.close($event)">Import</div>
-				<div (click)="menu.close($event)">Export</div>
+				<div>Import</div>
+				<div>Export</div>
 			</div>
 		</div>
 		<div class="button" (click)="settings.open($event)">
 			<i class="material-icons">settings</i>
-			<div dropdown class="dropdown dropdown-left" #settings="dropdown">
-				
+			<div dropdown class="dropdown dropdown-left color-pallete" #settings="dropdown">
+				<div *ngFor="let color of colorThemes" class="color-picker" [style.background]="color" (click)="colorTheme=color"></div>
 			</div>
 		</div>
 	</div>

@@ -94,7 +94,7 @@
 	display: flex;
 	flex-direction: row;
 	align-items: stretch;
-	background: dodgerblue;
+	background: yellowgreen;
 }
 
 .container .left, .container .right {
@@ -438,8 +438,8 @@
 	box-sizing: border-box;
 	-webkit-box-sizing: border-box;
 
-	color: white;
-	background: rgba(255, 255, 255, 0.2);
+	color: gray;
+	background: rgba(255, 255, 255, 0.9);
 
 	font-size: 14px;
 	font-family: Arial, Helvetica, sans-serif;
@@ -477,7 +477,7 @@
 }
 
 .content .note .action i {
-	color: white;
+	color: gray;
 }
 
 .content .note:hover .action {
@@ -512,17 +512,17 @@
 
 	background: white;
 	
-	opacity: 0;
+	background: rgba(255, 255, 255, 0);
 	visibility: hidden;
-	transition: opacity 0.8s, visibility 0.8s;
+	transition: background 0.8s, visibility 0.8s;
 }
 
 .edit {
+	background: rgba(255, 255, 255, 0.6);
 	visibility: visible;
-	opacity: 0.98;
 }
 
-/*.dropdown*/
+/*Dropdown*/
 
 .dropdown {
 	position: absolute;
@@ -530,6 +530,7 @@
 	right: 0;
 
 	background: white;
+	box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
 
 	color: gray;
 	font-size: 14px;
@@ -550,5 +551,37 @@
 }
 
 .dropdown > *:hover {
-	background: rgba(0, 0, 0, 0.1);
+	background:rgba(0, 0, 0, 0.1);
+}
+
+/*Color Pallete*/
+
+.color-pallete > * {
+	padding: 0;
+}
+
+.color-pallete > *:hover {
+	background: initial;
+}
+
+.color-pallete {
+	display: flex;
+	width: 120px;
+	padding: 10px;
+	justify-content: space-between;
+	flex-flow: row wrap;
+}
+
+.color-picker {
+	position: relative;
+	width: 32px;
+	height: 32px;
+	margin-bottom: 5px;
+
+	border-radius: 50%;
+	border: 3px solid white;
+
+	box-shadow: 0 2px 3px rgba(0, 0, 0, 0.1);
+
+	background: color;
 }
