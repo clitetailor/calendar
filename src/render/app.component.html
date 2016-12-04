@@ -6,7 +6,7 @@
 </may-cover>
 
 <div class="container main" [style.background]="colorTheme">
-	<div class="left" [style.background]="colorTheme">
+	<div class="left">
 		<!-- left side container -->
 		<!--<div class="date-ribbon">
 			<div class="date">{{today | date: "MMM"}}</div>
@@ -70,7 +70,8 @@
 		</div>
 
 		<div class="editor" [class.edit]="edit" [style.background]="colorTheme">
-
+			<div class="title">Title</div>
+			<div class="textarea" resizable-textarea placeholder="Note"></div>
 		</div>
 	</div>
 

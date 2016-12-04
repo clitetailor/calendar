@@ -103,12 +103,12 @@
 
 .container .left {
 	z-index: 2;
-	filter: brightness(1.2);
-	-webkit-filter: brightness(1.2);
 }
 
 .container .right {
 	position: relative;
+
+	background: rgba(0, 0, 0, 0.2);
 }
 
 /*background: #fbf4dd;*/
@@ -484,19 +484,6 @@
 	background: rgba(0, 0, 0, 0.1);
 }
 
-/*Editor*/
-
-.editor {
-	position: absolute;
-	top: 0; left: 0; right: 0; bottom: 0;
-
-	visibility: hidden;
-}
-
-.edit {
-	visibility: visible;
-}
-
 /*Dropdown*/
 
 .dropdown {
@@ -566,4 +553,70 @@
 	position: absolute;
 	top: 0; left: 0; right: 0; bottom: 0;
 	background: linear-gradient(135deg, transparent 0, transparent 50%, rgba(255, 255, 255, 0.1) 50%, rgba(255, 255, 255, 0.1) 100%);
+}
+
+/*Editor*/
+
+.editor {
+	position: absolute;
+	top: 0; left: 0; right: 0; bottom: 0;
+
+	padding-top: 36px;
+
+	visibility: hidden;
+}
+
+.editor::before {
+	content: "";
+	position: absolute;
+	top: 0; left: 0; right: 0; bottom: 0;
+
+	background: rgba(0, 0, 0, 0.2);
+}
+
+.edit {
+	visibility: visible;
+}
+
+.editor .title {
+	margin: 20px auto 10px auto;
+	max-width: 540px;
+
+	box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+
+	text-align: center;
+
+	position: relative;
+
+	color: white;
+	font-size: 12px;
+	font-weight: bold;
+	font-family: Arial, Helvetica, sans-serif;
+
+	text-transform: uppercase;
+}
+
+.editor .textarea {
+	margin: 10px auto;
+	padding: 10px 20px;
+	max-width: 540px;
+
+	position: relative;
+
+	box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+
+	color: gray;
+	background: rgba(255, 255, 255, 0.9);
+
+	font-size: 14px;
+	font-family: Arial, Helvetica, sans-serif;
+}
+
+/*Input*/
+
+[contenteditable=true]:empty:before{
+	content: attr(placeholder);
+	color: #aaa;
 }
