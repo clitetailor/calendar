@@ -6,7 +6,7 @@
 </may-cover>
 
 <div class="container main" [style.background]="colorTheme">
-	<div class="left">
+	<div class="left" [style.background]="colorTheme">
 		<!-- left side container -->
 		<!--<div class="date-ribbon">
 			<div class="date">{{today | date: "MMM"}}</div>
@@ -51,13 +51,6 @@
 	</div>
 	<div class="right">
 		<!-- right side container -->
-		<!--<div class="action-ribbon">
-			<div class="button-group">
-				<div class="button">
-					<i class="material-icons">add</i>
-				</div>
-			</div>
-		</div>-->
 
 		<div class="content">
 			<div *ngFor="let group of notes | sortByDate">
@@ -76,15 +69,12 @@
 			</div>
 		</div>
 
-		<div class="editor" [class.edit]="edit">
+		<div class="editor" [class.edit]="edit" [style.background]="colorTheme">
 
 		</div>
 	</div>
 
 	<div class="activity-bar">
-		<div class="button" (click)="toggleEditor()">
-			<i class="material-icons">add</i>
-		</div>
 		<div class="button" (click)="menu.open($event)">
 			<i class="material-icons">menu</i>
 			<div dropdown #menu="dropdown" class="dropdown dropdown-left">
@@ -95,8 +85,19 @@
 		<div class="button" (click)="settings.open($event)">
 			<i class="material-icons">settings</i>
 			<div dropdown class="dropdown dropdown-left color-pallete" #settings="dropdown">
-				<div *ngFor="let color of colorThemes" class="color-picker" [style.background]="color" (click)="colorTheme=color"></div>
+				<div *ngFor="let color of colorThemes" class="color-picker" (click)="colorTheme=color" [style.color]="color"></div>
 			</div>
 		</div>
+		<div class="button" (click)="toggleEditor()">
+			<i class="material-icons" [ngSwitch]="edit">
+				<span *ngSwitchDefault>
+					add
+				</span>
+				<span *ngSwitchCase="true">
+					arrow_back
+				</span>
+			</i>
+		</div>
 	</div>
+	
 </div>

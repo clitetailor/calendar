@@ -103,11 +103,12 @@
 
 .container .left {
 	z-index: 2;
+	filter: brightness(1.2);
+	-webkit-filter: brightness(1.2);
 }
 
 .container .right {
 	position: relative;
-	background: rgba(0, 0, 0, 0.2);
 }
 
 /*background: #fbf4dd;*/
@@ -422,7 +423,7 @@
 	text-align: center;
 
 	color: white;
-	font-size: 10px;
+	font-size: 12px;
 	font-weight: bold;
 	font-family: Arial, Helvetica, sans-serif;
 
@@ -460,7 +461,6 @@
 	top: 5px;
 	right: 5px;
 
-	visibility: hidden;
 	width: 30px;
 	height: 30px;
 
@@ -480,28 +480,8 @@
 	color: gray;
 }
 
-.content .note:hover .action {
-	visibility: visible;
-}
-
 .content .note .action:active {
 	background: rgba(0, 0, 0, 0.1);
-}
-
-.content .note .action {
-	color: gray;
-}
-
-
-
-.button-layout {
-	width: 100px;
-	height: 160px;
-	position: absolute;
-	right: 0;
-	bottom: 0;
-
-	z-index: 10px;
 }
 
 /*Editor*/
@@ -510,15 +490,10 @@
 	position: absolute;
 	top: 0; left: 0; right: 0; bottom: 0;
 
-	background: white;
-	
-	background: rgba(255, 255, 255, 0);
 	visibility: hidden;
-	transition: background 0.8s, visibility 0.8s;
 }
 
 .edit {
-	background: rgba(255, 255, 255, 0.6);
 	visibility: visible;
 }
 
@@ -530,7 +505,7 @@
 	right: 0;
 
 	background: white;
-	box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+	box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2), 0 2px 3px rgba(0, 0, 0, 0.1);
 
 	color: gray;
 	font-size: 14px;
@@ -556,12 +531,14 @@
 
 /*Color Pallete*/
 
-.color-pallete > * {
+.color-pallete > .color-picker {
 	padding: 0;
 }
 
-.color-pallete > *:hover {
-	background: initial;
+.color-pallete > .color-picker:hover {
+	background: currentColor;
+	filter: opacity(0.8);
+	-webkit-filter: opacity(0.8);
 }
 
 .color-pallete {
@@ -579,9 +556,14 @@
 	margin-bottom: 5px;
 
 	border-radius: 50%;
-	border: 3px solid white;
 
-	box-shadow: 0 2px 3px rgba(0, 0, 0, 0.1);
+	background: currentColor;
+	box-shadow: 0 2px 3px currentColor;
+}
 
-	background: color;
+.color-picker::after {
+	content: "";
+	position: absolute;
+	top: 0; left: 0; right: 0; bottom: 0;
+	background: linear-gradient(135deg, transparent 0, transparent 50%, rgba(255, 255, 255, 0.1) 50%, rgba(255, 255, 255, 0.1) 100%);
 }

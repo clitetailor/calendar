@@ -6,21 +6,31 @@ import { Pipe } from '@angular/core';
 
 export class SortByDate {
 	startOfDay(day) {
-		return day.setHours(0, 0, 0, 0);
+		let start = new Date(day);
+		start.setHours(0, 0, 0, 0);
+		return start;
 	}
 
 	transform(notes) {
-		let timeline = notes.map(note => {
-			return {
-				date: this.startOfDay(note.date),
-				notes: []
-			}
-		});
+
 		let sorted = notes.sort((pre, next) => pre.date < next.date);
-		sorted.forEach(note => {
-			timeline.find(group => this.startOfDay(note.date) === group.date)
-				.notes.push(note);		
-		})
+
+		let cur,
+			timeline = [];
+
+		for (let note of sorted) {
+			let next = this.startOfDay(note.date);
+
+			if (cur === undefined || next !== cur) {
+				cur = next;
+				timeline.push({
+					date: cur,
+					notes: [note]
+				});
+			} else {
+				timeline[timeline.length - 1].notes.push(note);
+			}
+		}
 
 		return timeline;
 	}
