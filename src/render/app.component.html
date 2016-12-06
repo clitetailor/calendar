@@ -67,30 +67,34 @@
 					</div>
 				</div>
 			</div>
+
+			<!--<div *ngFor="let note of notes">
+				{{note.title}}, {{note.time}}, {{note.tags}}
+			</div>-->
 		</div>
 
 		<div class="editor" [class.edit]="edit" [style.background]="colorTheme">
 			<div class="form">
 				<div class="title">Title</div>
-				<resizable-textarea class="textarea" placeholder="Note" ngModel require></resizable-textarea>
+				<resizable-textarea class="textarea" placeholder="Note" [(ngModel)]="curNote.title" require></resizable-textarea>
 
 				<div class="row">
 					<div class="col">
 						<div class="title">Date</div>
-						<date-input class="input" [ngModel]="selectedDay" (ngModelChange)="selectDay($event)"></date-input>
+						<date-input class="input" [ngModel]="curNote.time" (ngModelChange)="selectDay($event)"></date-input>
 					</div>
 					<div class="col">
 						<div class="title">Time</div>
-						<time-input class="input" [ngModel]="selectedDay" (ngModelChange)="selectDay($event)"></time-input>
+						<time-input class="input" [ngModel]="curNote.time" (ngModelChange)="selectDay($event)"></time-input>
 					</div>
 				</div>
 
 				<div class="title">Tags</div>
-				<tag-input class="input"></tag-input>
+				<tag-input class="input" [(ngModel)]="curNote.tags"></tag-input>
 
 				<div class="button-group">
-					<div class="button" button>Done</div>
-					<div class="button" button>Cancel</div>
+					<div class="button" button (click)="addNote()">Done</div>
+					<div class="button" button (click)="toggleEditor()">Cancel</div>
 				</div>
 			</div>
 		</div>

@@ -1,16 +1,18 @@
-import { Component, OnInit, NgZone, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, NgZone, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 
 import { DateService } from './date.service';
 import { NotificationService } from './notification.service';
 import { ConfigService } from './config.service';
 
 import { Note } from './note';
+import { SortByDate } from './sort-by-date.pipe';
 
 @Component({
   selector: 'may-app',
   template: require("./app.component.html"),
   styleUrls: ["./app.component.css"],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  providers: [SortByDate]
 })
 export class AppComponent implements OnInit {
   colorTheme = "yellowgreen";
@@ -21,18 +23,14 @@ export class AppComponent implements OnInit {
   month: number[][];
   selectedDay: Date;
 
-  constructor(private dateService: DateService, private notificationService: NotificationService, private ngZone: NgZone, private configService: ConfigService) {
+  constructor(private dateService: DateService, private notificationService: NotificationService, private ngZone: NgZone, private configService: ConfigService, private sortByDate: SortByDate, private ref: ChangeDetectorRef) {
     setInterval(() => {
       this.ngZone.run(() => {
         this.today = new Date();
       })
     }, 1000)
 
-    this.configService.loadConfig().then(strData => {
-      let data = JSON.parse(strData);
-      
-      console.log(data);
-
+    this.configService.loadConfig().then((data) => {
       if (data.colorTheme) {
         this.colorTheme = data.colorTheme;
       }
@@ -40,6 +38,17 @@ export class AppComponent implements OnInit {
     }).catch((err) => {
       console.log(err);
     });
+
+    this.curNote = {
+      title: "",
+      tags: "",
+      time: this.selectedDay
+    }
+
+    ref.detach();
+    setInterval(() => {
+      this.ref.detectChanges();
+    }, 200);
   }
 
   changeColorTheme(colorTheme) {
@@ -52,9 +61,9 @@ export class AppComponent implements OnInit {
   }
 
   saveConfig() {
-    this.configService.saveConfig(JSON.stringify({
+    this.configService.saveConfig({
       colorTheme: this.colorTheme
-    })).catch(err => console.log(err));
+    }).catch(err => console.log(err));
   }
 
   previousMonth() {
@@ -73,6 +82,7 @@ export class AppComponent implements OnInit {
       this.selectDay(new Date(year, month, day))
     } else {
       this.selectedDay = new Date(day);
+      this.curNote.time = this.selectedDay;
       this.month = this.dateService.getDatesInMonth(day);
     }
   }
@@ -87,6 +97,18 @@ export class AppComponent implements OnInit {
     title: "Goto school",
     tags: "something",
     time: new Date()
+  },{
+    title: "Goto school",
+    tags: "something",
+    time: new Date()
+  },{
+    title: "Goto school",
+    tags: "something",
+    time: new Date()
+  },{
+    title: "Goto school",
+    tags: "something",
+    time: new Date()
   }];
 
   edit: boolean = false;
@@ -95,15 +117,15 @@ export class AppComponent implements OnInit {
     this.edit = !this.edit;
   }
 
-  debug(...args) {
-    args.forEach(arg => {
-      console.log(arg, typeof(arg));
-      arg.setHours(0, 0, 0, 0);
-      console.log(arg);
-    })
-  }
+  curNote: Note;
 
-  addNote(note) {
-    this.notes.push(note);
+  addNote() {
+    this.notes.push(this.curNote);
+    this.curNote = {
+      title: "",
+      tags: "",
+      time: this.selectedDay
+    }
+    this.toggleEditor();
   }
 }

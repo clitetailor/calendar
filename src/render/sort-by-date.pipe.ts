@@ -1,7 +1,8 @@
 import { Pipe } from '@angular/core';
 
 @Pipe({
-	name: "sortByDate"
+	name: "sortByDate",
+	pure: false
 })
 
 export class SortByDate {
@@ -12,8 +13,7 @@ export class SortByDate {
 	}
 
 	transform(notes) {
-
-		let sorted = notes.sort((pre, next) => pre.time < next.time);
+		let sorted = notes.sort((pre, next) => pre.time > next.time);
 
 		let cur,
 			timeline = [];
@@ -21,7 +21,7 @@ export class SortByDate {
 		for (let note of sorted) {
 			let next = this.startOfDay(note.time);
 
-			if (cur === undefined || next !== cur) {
+			if (cur == undefined || next.getTime() !== cur.getTime()) {
 				cur = next;
 				timeline.push({
 					date: cur,
@@ -31,7 +31,6 @@ export class SortByDate {
 				timeline[timeline.length - 1].notes.push(note);
 			}
 		}
-
 		return timeline;
 	}
 }

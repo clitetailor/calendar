@@ -2,13 +2,13 @@ import { Injectable } from '@angular/core';
 import { FileSystem } from './service/file-system.service';
 
 @Injectable()
-export class ConfigService {
+export class UserDataService {
 	constructor(private fileSystem: FileSystem) {
 
 	}
 
 	loadConfig() {
-		return this.fileSystem.readFile('./config.json')
+		return this.fileSystem.readFile('./usr-data.json')
 			.then((data) => {
 				return JSON.parse(data);
 			});
