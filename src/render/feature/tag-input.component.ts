@@ -94,7 +94,7 @@ export class TagInput implements ControlValueAccessor {
 
 	writeValue(text) {
 		text = text || "";
-		this.elementRef.nativeElement.innerHTML = "";
+		this.renderer.setText(this.elementRef.nativeElement, "");
 
 		let tags = text.replace(/^\s\s*/, '').replace(/\s\s*$/, '').split(/\s+/g)
 		.filter((tag) => {

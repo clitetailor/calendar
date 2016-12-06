@@ -1,8 +1,7 @@
 import { Pipe } from '@angular/core';
 
 @Pipe({
-	name: "sortByDate",
-	pure: false
+	name: "sortByDate"
 })
 
 export class SortByDate {

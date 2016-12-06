@@ -55,25 +55,21 @@
 		<div class="content">
 			<div *ngFor="let group of notes | sortByDate">
 				<div class="date">{{group.date | date: "EEE MMM dd"}}</div>
-				<div *ngFor="let note of group.notes" class="note">
+				<div *ngFor="let note of group.notes; let noteId = index" class="note">
 					<div class="time">{{note.time | date: "hh:mm a"}}</div>
 					<div class="title">{{note.title}}</div>
 					<div class="action" (click)="action.open($event)">
 						<i class="material-icons">more_vert</i>
 						<div dropdown #action="dropdown" class="dropdown">
 							<div (click)="action.close($event)">Edit</div>
-							<div (click)="action.close($event)">Remove</div>
+							<div (click)="action.close($event); removeNote(noteId)">Remove</div>
 						</div>
 					</div>
 				</div>
 			</div>
-
-			<!--<div *ngFor="let note of notes">
-				{{note.title}}, {{note.time}}, {{note.tags}}
-			</div>-->
 		</div>
 
-		<div class="editor" [class.edit]="edit" [style.background]="colorTheme">
+		<div class="editor" [class.editor-active]="editor" [style.background]="colorTheme">
 			<div class="form">
 				<div class="title">Title</div>
 				<resizable-textarea class="textarea" placeholder="Note" [(ngModel)]="curNote.title" require></resizable-textarea>
@@ -115,7 +111,7 @@
 			</div>
 		</div>
 		<div class="button" (click)="toggleEditor()">
-			<i class="material-icons" [ngSwitch]="edit">
+			<i class="material-icons" [ngSwitch]="editor">
 				<span *ngSwitchDefault>add</span><span *ngSwitchCase="true">arrow_back</span>
 			</i>
 		</div>

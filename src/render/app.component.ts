@@ -10,9 +10,7 @@ import { SortByDate } from './sort-by-date.pipe';
 @Component({
   selector: 'may-app',
   template: require("./app.component.html"),
-  styleUrls: ["./app.component.css"],
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  providers: [SortByDate]
+  styleUrls: ["./app.component.css"]
 })
 export class AppComponent implements OnInit {
   colorTheme = "yellowgreen";
@@ -23,7 +21,7 @@ export class AppComponent implements OnInit {
   month: number[][];
   selectedDay: Date;
 
-  constructor(private dateService: DateService, private notificationService: NotificationService, private ngZone: NgZone, private configService: ConfigService, private sortByDate: SortByDate, private ref: ChangeDetectorRef) {
+  constructor(private dateService: DateService, private notificationService: NotificationService, private ngZone: NgZone, private configService: ConfigService) {
     setInterval(() => {
       this.ngZone.run(() => {
         this.today = new Date();
@@ -44,11 +42,6 @@ export class AppComponent implements OnInit {
       tags: "",
       time: this.selectedDay
     }
-
-    ref.detach();
-    setInterval(() => {
-      this.ref.detectChanges();
-    }, 200);
   }
 
   changeColorTheme(colorTheme) {
@@ -93,39 +86,29 @@ export class AppComponent implements OnInit {
     this.selectedTag = tag;
   }
 
-  notes: Note[] = [{
-    title: "Goto school",
-    tags: "something",
-    time: new Date()
-  },{
-    title: "Goto school",
-    tags: "something",
-    time: new Date()
-  },{
-    title: "Goto school",
-    tags: "something",
-    time: new Date()
-  },{
-    title: "Goto school",
-    tags: "something",
-    time: new Date()
-  }];
+  notes: Note[] = [];
 
-  edit: boolean = false;
+  editor: boolean = false;
+  editNote: boolean = false;
 
   toggleEditor() {
-    this.edit = !this.edit;
+    this.editor = !this.editor;
   }
 
   curNote: Note;
 
   addNote() {
-    this.notes.push(this.curNote);
+    this.notes = this.notes.concat(this.curNote);
     this.curNote = {
       title: "",
       tags: "",
       time: this.selectedDay
     }
     this.toggleEditor();
+  }
+
+  removeNote(index) {
+    this.notes.splice(index, 1);
+    this.notes = [...this.notes];
   }
 }
