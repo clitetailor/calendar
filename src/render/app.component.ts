@@ -1,14 +1,16 @@
-import { Component, OnInit, NgZone } from '@angular/core';
+import { Component, OnInit, NgZone, ChangeDetectionStrategy } from '@angular/core';
 
 import { DateService } from './date.service';
 import { NotificationService } from './notification.service';
+import { ConfigService } from './config.service';
 
 import { Note } from './note';
 
 @Component({
   selector: 'may-app',
   template: require("./app.component.html"),
-  styleUrls: ["./app.component.css"]
+  styleUrls: ["./app.component.css"],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AppComponent implements OnInit {
   colorTheme = "yellowgreen";
@@ -19,16 +21,40 @@ export class AppComponent implements OnInit {
   month: number[][];
   selectedDay: Date;
 
-  constructor(private dateService: DateService, private notificationService: NotificationService, private ngZone: NgZone) {
+  constructor(private dateService: DateService, private notificationService: NotificationService, private ngZone: NgZone, private configService: ConfigService) {
     setInterval(() => {
       this.ngZone.run(() => {
         this.today = new Date();
       })
     }, 1000)
+
+    this.configService.loadConfig().then(strData => {
+      let data = JSON.parse(strData);
+      
+      console.log(data);
+
+      if (data.colorTheme) {
+        this.colorTheme = data.colorTheme;
+      }
+
+    }).catch((err) => {
+      console.log(err);
+    });
+  }
+
+  changeColorTheme(colorTheme) {
+    this.colorTheme = colorTheme;
+    this.saveConfig();
   }
 
   ngOnInit() {
     this.selectDay(new Date);
+  }
+
+  saveConfig() {
+    this.configService.saveConfig(JSON.stringify({
+      colorTheme: this.colorTheme
+    })).catch(err => console.log(err));
   }
 
   previousMonth() {
@@ -59,7 +85,7 @@ export class AppComponent implements OnInit {
 
   notes: Note[] = [{
     title: "Goto school",
-    tag: "something",
+    tags: "something",
     time: new Date()
   }];
 

@@ -83,6 +83,15 @@ export class TagInput implements ControlValueAccessor {
 		this.onTouchedCallback();
 	}
 
+	@HostListener('click') onClick() {
+		var range = document.createRange();
+        range.selectNodeContents(this.elementRef.nativeElement);
+        range.collapse(false);
+        var selection = window.getSelection();
+        selection.removeAllRanges();
+        selection.addRange(range);
+	}
+
 	writeValue(text) {
 		this.elementRef.nativeElement.innerHTML = "";
 

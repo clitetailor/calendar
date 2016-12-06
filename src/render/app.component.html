@@ -81,7 +81,7 @@
 					</div>
 					<div class="col">
 						<div class="title">Time</div>
-						<time-input class="input" [(ngModel)]="selectedDay"></time-input>
+						<time-input class="input" [ngModel]="selectedDay" (ngModelChange)="selectDay($event)"></time-input>
 					</div>
 				</div>
 
@@ -107,7 +107,7 @@
 		<div class="button" (click)="settings.open($event)">
 			<i class="material-icons">settings</i>
 			<div dropdown class="dropdown dropdown-left color-pallete" #settings="dropdown">
-				<div *ngFor="let color of colorThemes" class="color-picker" (click)="colorTheme=color" [style.color]="color"></div>
+				<div *ngFor="let color of colorThemes" class="color-picker" (click)="changeColorTheme(color)" [style.color]="color"></div>
 			</div>
 		</div>
 		<div class="button" (click)="toggleEditor()">

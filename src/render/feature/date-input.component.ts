@@ -78,56 +78,16 @@ export class DateInput implements ControlValueAccessor {
 		let date = this.date.getDate(), month = this.date.getMonth(), year = this.date.getFullYear();
 
 		switch (cursorPosition) {
+			// dd
 			case 0: {
-				// dd
-				switch (key) {
-					case "0": {
-						if (date > 10) {
-							this.date.setDate(date % 10);
-						}
-						this.renderer.setText(this.elementRef.nativeElement, this.datePipe.transform(this.date, 'dd-MM-y'));
-						this.setCursorPosition(1);
-						break;
-					}
-					case "1": {
-						if (date < 10 || date > 19) {
-							this.date.setDate(date % 10 + 10)
-						}
-						this.renderer.setText(this.elementRef.nativeElement, this.datePipe.transform(this.date, 'dd-MM-y'));
-						this.setCursorPosition(1);
-						break;
-					}
-					case "2": {
-						if (date < 20 || date > 29) {
-							this.date.setDate(date % 10 + 20)
-						}
-						this.renderer.setText(this.elementRef.nativeElement, this.datePipe.transform(this.date, 'dd-MM-y'));
-						this.setCursorPosition(1);
-						break;
-					}
-					case "3": {
-						let lastDay = new Date(year, month + 1, 0).getDate();
-
-						if (date % 10 > lastDay % 10) {
-							this.date.setDate(lastDay);
-						}
-						if (date < 30) {
-							this.date.setDate(date % 10 + 30);
-						}
-						this.renderer.setText(this.elementRef.nativeElement, this.datePipe.transform(this.date, 'dd-MM-y'));
-						this.setCursorPosition(1);
-						break;
-					}
-					case "4": case "5": case "6": case "7": case "8": case "9": {
-						this.date.setDate(+key);
-						this.renderer.setText(this.elementRef.nativeElement, this.datePipe.transform(this.date, 'dd-MM-y'));
-						this.setCursorPosition(3);
-						break;
-					}
-					default: {
-						break;
-					}
+				let lastDay = new Date(year, month + 1, 0).getDate();
+				date = key * 10 + date % 10;
+				if (date > lastDay) {
+					date = lastDay;
 				}
+				this.date.setDate(date);
+				this.renderer.setText(this.elementRef.nativeElement, this.datePipe.transform(this.date, 'dd-MM-y'));
+				this.setCursorPosition(1);
 				break;
 			}
 			case 1: {
