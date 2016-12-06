@@ -70,8 +70,24 @@
 		</div>
 
 		<div class="editor" [class.edit]="edit" [style.background]="colorTheme">
-			<div class="title">Title</div>
-			<div class="textarea" resizable-textarea placeholder="Note"></div>
+			<div class="form">
+				<div class="title">Title</div>
+				<resizable-textarea class="textarea" placeholder="Note" ngModel></resizable-textarea>
+
+				<div class="row">
+					<div class="col">
+						<div class="title">Date</div>
+						<date-input class="input" [ngModel]="selectedDay" (ngModelChange)="selectDay($event)"></date-input>
+					</div>
+					<div class="col">
+						<div class="title">Time</div>
+						<time-input class="input" [(ngModel)]="selectedDay"></time-input>
+					</div>
+				</div>
+
+				<div class="title">Tags</div>
+				<tag-input class="input"></tag-input>
+			</div>
 		</div>
 	</div>
 
@@ -91,12 +107,7 @@
 		</div>
 		<div class="button" (click)="toggleEditor()">
 			<i class="material-icons" [ngSwitch]="edit">
-				<span *ngSwitchDefault>
-					add
-				</span>
-				<span *ngSwitchCase="true">
-					arrow_back
-				</span>
+				<span *ngSwitchDefault>add</span><span *ngSwitchCase="true">arrow_back</span>
 			</i>
 		</div>
 	</div>

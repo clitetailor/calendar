@@ -39,17 +39,15 @@ export class AppComponent implements OnInit {
     this.selectDay(this.dateService.nextMonth(this.selectedDay));
   }
 
-  selectDay(day: Date | number) {
-    if (day instanceof Date) {
-      this.selectedDay = day;
-      this.month = this.dateService.getDatesInMonth(day);
-    } else if (typeof day == "number") {
+  selectDay(day) {
+    if (typeof day == "number") {
       let year = this.selectedDay.getFullYear(),
           month = this.selectedDay.getMonth();
 
       this.selectDay(new Date(year, month, day))
     } else {
-
+      this.selectedDay = new Date(day);
+      this.month = this.dateService.getDatesInMonth(day);
     }
   }
 
@@ -70,5 +68,13 @@ export class AppComponent implements OnInit {
 
   toggleEditor() {
     this.edit = !this.edit;
+  }
+
+  debug(...args) {
+    args.forEach(arg => {
+      console.log(arg, typeof(arg));
+      arg.setHours(0, 0, 0, 0);
+      console.log(arg);
+    })
   }
 }

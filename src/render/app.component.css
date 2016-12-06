@@ -578,14 +578,28 @@
 	visibility: visible;
 }
 
-.editor .title {
-	margin: 20px auto 10px auto;
+.editor .form {
+	margin: 0 auto;
 	max-width: 540px;
+}
+
+.editor .form .row {
+	display: flex;
+}
+
+.editor .form .col {
+	flex: 1;
+}
+
+.editor .form .col:not(:first-child) {
+	margin-left: 20px;
+}
+
+.editor .title {
+	margin: 20px 0px 10px 0px;
 
 	box-sizing: border-box;
 	-webkit-box-sizing: border-box;
-
-	text-align: center;
 
 	position: relative;
 
@@ -598,9 +612,8 @@
 }
 
 .editor .textarea {
-	margin: 10px auto;
+	margin: 10px 0px;
 	padding: 10px 20px;
-	max-width: 540px;
 
 	position: relative;
 
@@ -614,9 +627,34 @@
 	font-family: Arial, Helvetica, sans-serif;
 }
 
-/*Input*/
+.editor .input {
+	display: block;
+	margin: 10px 0px;
+	padding: 10px 20px;
 
-[contenteditable=true]:empty:before{
-	content: attr(placeholder);
-	color: #aaa;
+	position: relative;
+
+	box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+
+	color: white;
+	background: none;
+
+	outline: none;
+	border: none;
+	border-bottom: 2px solid rgba(255, 255, 255, 0.9);
+
+	font-size: 14px;
+	font-family: Arial, Helvetica, sans-serif;
+}
+
+tag-input >>> .tag {
+	margin: 3px;
+	padding: 5px 8px;
+
+	line-height: 30px;
+
+	color: gray;
+	background: white;
+	border-radius: 100px;
 }
