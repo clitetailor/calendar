@@ -5,7 +5,7 @@ import { DatePipe } from '@angular/common';
 
 @Component({
 	selector: 'time-input',
-	template: `{{date | date: "hh:mm:ss a"}}`,
+	template: `{{date | date: "HH:mm:ss"}}`,
 	styles: [`
 		:host {
 			display: block;
@@ -56,9 +56,6 @@ export class TimeInput implements ControlValueAccessor {
 			case "ArrowLeft": case "ArrowRight": case "ArrowUp": case "ArrowDown": case "Tab": {
 				return;
 			}
-			case "0": case "1": case "2": case "3": case "4": case "5": case "6": case "7": case "8": case "9": {
-				break;
-			}
 			case " ":
 			case "Enter": {
 				event.preventDefault();
@@ -70,136 +67,68 @@ export class TimeInput implements ControlValueAccessor {
 			}
 			default: {
 				event.preventDefault();
-				return;
+				break;
 			}
 		}
 
-		event.preventDefault();
+		if (isNaN(key)) {
+			return;
+		}
 
-		let date = this.date.getDate(), month = this.date.getMonth(), year = this.date.getFullYear();
+		let hours = this.date.getHours(), minutes = this.date.getMinutes(), seconds = this.date.getSeconds();
 
 		switch (cursorPosition) {
 			case 0: {
-				// hh
-				switch (key) {
-					case "0": {
-						if (date > 10) {
-							this.date.setDate(date % 10);
-						}
-						this.renderer.setText(this.elementRef.nativeElement, this.datePipe.transform(this.date, 'hh:mm:ss a'));
-						this.setCursorPosition(1);
-						break;
+				// HH
+				if (key < 3) {
+					hours = parseInt(key) * 10 + hours % 10;
+					if (hours > 23) {
+						hours = 23;
 					}
-					case "1": {
-						if (date < 10 || date > 19) {
-							this.date.setDate(date % 10 + 10)
-						}
-						this.renderer.setText(this.elementRef.nativeElement, this.datePipe.transform(this.date, 'hh:mm:ss a'));
-						this.setCursorPosition(1);
-						break;
-					}
-					case "2": {
-						if (date < 20 || date > 29) {
-							this.date.setDate(date % 10 + 20)
-						}
-						this.renderer.setText(this.elementRef.nativeElement, this.datePipe.transform(this.date, 'hh:mm:ss a'));
-						this.setCursorPosition(1);
-						break;
-					}
-					case "3": {
-						let lastDay = new Date(year, month + 1, 0).getDate();
-
-						if (date % 10 > lastDay % 10) {
-							this.date.setDate(lastDay);
-						}
-						if (date < 30) {
-							this.date.setDate(date % 10 + 30);
-						}
-						this.renderer.setText(this.elementRef.nativeElement, this.datePipe.transform(this.date, 'hh:mm:ss a'));
-						this.setCursorPosition(1);
-						break;
-					}
-					case "4": case "5": case "6": case "7": case "8": case "9": {
-						this.date.setDate(+key);
-						this.renderer.setText(this.elementRef.nativeElement, this.datePipe.transform(this.date, 'hh:mm:ss a'));
-						this.setCursorPosition(3);
-						break;
-					}
-					default: {
-						break;
-					}
+					this.date.setHours(hours);
+					this.renderer.setText(this.elementRef.nativeElement, this.datePipe.transform(this.date, 'HH:mm:ss'));
+					this.setCursorPosition(1);
+				} else {
+					this.date.setHours(parseInt(key));
+					this.renderer.setText(this.elementRef.nativeElement, this.datePipe.transform(this.date, 'HH:mm:ss'));
+					this.setCursorPosition(3);
 				}
 				break;
 			}
 			case 1: {
-				this.date.setDate(Math.floor(date / 10) * 10 + parseInt(key));
-				this.renderer.setText(this.elementRef.nativeElement, this.datePipe.transform(this.date, 'hh:mm:ss a'));
+				this.date.setHours(Math.floor(hours / 10) * 10 + parseInt(key));
+				this.renderer.setText(this.elementRef.nativeElement, this.datePipe.transform(this.date, 'HH:mm:ss'));
 				this.setCursorPosition(3);
 				break;
 			}
-			// MM
+			// mm
 			case 2: case 3: {
-				switch (key) {
-					case "0": {
-						if (month > 10) {
-							this.date.setMonth(month % 10);
-						}
-						this.renderer.setText(this.elementRef.nativeElement, this.datePipe.transform(this.date, 'hh:mm:ss a'));
-						this.setCursorPosition(4);
-						break;
-					}
-					case "1": {
-						if (month < 2) {
-							this.date.setMonth(11);
-						}
-						if (month < 10) {
-							this.date.setMonth(month % 10 + 10)
-						}
-						this.renderer.setText(this.elementRef.nativeElement, this.datePipe.transform(this.date, 'hh:mm:ss a'));
-						this.setCursorPosition(4);
-						break;
-					}
-					case "2": case "3": case "4": case "5": case "6": case "7": case "8": case "9": {
-						this.date.setMonth(parseInt(key) - 1);
-						this.renderer.setText(this.elementRef.nativeElement, this.datePipe.transform(this.date, 'hh:mm:ss a'));
-						this.setCursorPosition(6);
-						break;
-					}
-					default: {
-						break;
-					}
+				if (key < 6) {
+					this.date.setMinutes(parseInt(key) * 10 + minutes % 10);
+					this.renderer.setText(this.elementRef.nativeElement, this.datePipe.transform(this.date, 'HH:mm:ss'));
+					this.setCursorPosition(4);
 				}
 				break;
 			}
 			case 4: {
-				this.date.setMonth(Math.floor(month / 10) * 10 + parseInt(key) - 1);
-				this.renderer.setText(this.elementRef.nativeElement, this.datePipe.transform(this.date, 'hh:mm:ss a'));
+				this.date.setMinutes(Math.floor(minutes / 10) * 10 + parseInt(key));
+				this.renderer.setText(this.elementRef.nativeElement, this.datePipe.transform(this.date, 'HH:mm:ss'));
 				this.setCursorPosition(6);
 				break;
 			}
-			// y
+			// ss
 			case 5: case 6: {
-				this.date.setFullYear(key * 1000 + year % 1000);
-				this.renderer.setText(this.elementRef.nativeElement, this.datePipe.transform(this.date, 'hh:mm:ss a'));
-				this.setCursorPosition(7);
+				if (key < 6) {
+					this.date.setSeconds(parseInt(key) * 10 + seconds % 10);
+					this.renderer.setText(this.elementRef.nativeElement, this.datePipe.transform(this.date, 'HH:mm:ss'));
+					this.setCursorPosition(7);
+				}
 				break;
 			}
 			case 7: {
-				this.date.setFullYear(Math.floor(year / 1000) * 1000 + parseInt(key) * 100 + year % 100);
-				this.renderer.setText(this.elementRef.nativeElement, this.datePipe.transform(this.date, 'hh:mm:ss a'));
+				this.date.setSeconds(Math.floor(seconds / 10) * 10 + parseInt(key));
+				this.renderer.setText(this.elementRef.nativeElement, this.datePipe.transform(this.date, 'HH:mm:ss'));
 				this.setCursorPosition(8);
-				break;
-			}
-			case 8: {
-				this.date.setFullYear(Math.floor(year / 100) * 100 + parseInt(key) * 10 + year % 10);
-				this.renderer.setText(this.elementRef.nativeElement, this.datePipe.transform(this.date, 'hh:mm:ss a'));
-				this.setCursorPosition(9);
-				break;
-			}
-			case 9: {
-				this.date.setFullYear(Math.floor(year / 10) * 10 + parseInt(key));
-				this.renderer.setText(this.elementRef.nativeElement, this.datePipe.transform(this.date, 'hh:mm:ss a'));
-				this.setCursorPosition(10);
 				break;
 			}
 			default: {
@@ -219,7 +148,7 @@ export class TimeInput implements ControlValueAccessor {
 
 	writeValue(date: Date) {
 		this.date = date;
-		this.renderer.setText(this.elementRef.nativeElement, this.datePipe.transform(this.date, 'hh:mm:ss a'));
+		this.renderer.setText(this.elementRef.nativeElement, this.datePipe.transform(this.date, 'HH:mm:ss'));
 	}
 
 	registerOnChange(fn: any) {

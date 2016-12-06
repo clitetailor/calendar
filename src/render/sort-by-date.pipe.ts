@@ -13,13 +13,13 @@ export class SortByDate {
 
 	transform(notes) {
 
-		let sorted = notes.sort((pre, next) => pre.date < next.date);
+		let sorted = notes.sort((pre, next) => pre.time < next.time);
 
 		let cur,
 			timeline = [];
 
 		for (let note of sorted) {
-			let next = this.startOfDay(note.date);
+			let next = this.startOfDay(note.time);
 
 			if (cur === undefined || next !== cur) {
 				cur = next;

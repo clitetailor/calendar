@@ -76,7 +76,6 @@ export class TagInput implements ControlValueAccessor {
 
 	@HostListener('input') onInput() {
 		let text = this.elementRef.nativeElement.innerText;
-		console.log(text);
 		this.onChangeCallback(text);
 	}
 

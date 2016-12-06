@@ -56,7 +56,7 @@
 			<div *ngFor="let group of notes | sortByDate">
 				<div class="date">{{group.date | date: "EEE MMM dd"}}</div>
 				<div *ngFor="let note of group.notes" class="note">
-					<div class="time">{{note.date | date: "hh:mm a"}}</div>
+					<div class="time">{{note.time | date: "hh:mm a"}}</div>
 					<div class="title">{{note.title}}</div>
 					<div class="action" (click)="action.open($event)">
 						<i class="material-icons">more_vert</i>
@@ -72,7 +72,7 @@
 		<div class="editor" [class.edit]="edit" [style.background]="colorTheme">
 			<div class="form">
 				<div class="title">Title</div>
-				<resizable-textarea class="textarea" placeholder="Note" ngModel></resizable-textarea>
+				<resizable-textarea class="textarea" placeholder="Note" ngModel require></resizable-textarea>
 
 				<div class="row">
 					<div class="col">
@@ -87,6 +87,11 @@
 
 				<div class="title">Tags</div>
 				<tag-input class="input"></tag-input>
+
+				<div class="button-group">
+					<div class="button" button>Done</div>
+					<div class="button" button>Cancel</div>
+				</div>
 			</div>
 		</div>
 	</div>

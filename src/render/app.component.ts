@@ -60,8 +60,7 @@ export class AppComponent implements OnInit {
   notes: Note[] = [{
     title: "Goto school",
     tag: "something",
-    frequency: "weekly",
-    date: new Date()
+    time: new Date()
   }];
 
   edit: boolean = false;
@@ -76,5 +75,9 @@ export class AppComponent implements OnInit {
       arg.setHours(0, 0, 0, 0);
       console.log(arg);
     })
+  }
+
+  addNote(note) {
+    this.notes.push(note);
   }
 }
