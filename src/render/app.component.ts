@@ -1,4 +1,5 @@
 import { Component, OnInit, NgZone, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
+import { DomSanitizer } from '@angular/platform-browser';
 
 import { DateService } from './date.service';
 import { NotificationService } from './notification.service';
@@ -22,7 +23,7 @@ export class AppComponent implements OnInit {
   month: number[][];
   selectedDay: Date;
 
-  constructor(private dateService: DateService, private notificationService: NotificationService, private ngZone: NgZone, private configService: ConfigService, private userData: UserDataService) {
+  constructor(private dateService: DateService, private notificationService: NotificationService, private ngZone: NgZone, private configService: ConfigService, private userData: UserDataService, private sanitizer: DomSanitizer) {
     setInterval(() => {
       this.ngZone.run(() => {
         this.today = new Date();
@@ -190,5 +191,9 @@ export class AppComponent implements OnInit {
       let time = note.time;
       return time.getDate() === day;
     }) !== -1;
+  }
+
+  darker(colorTheme) {
+    return this.sanitizer.bypassSecurityTrustStyle(colorTheme + ", rgba(0, 0, 0, 0.2);");
   }
 }
