@@ -7,7 +7,6 @@ import { ServiceModule } from './service/service.module';
 
 import { AppComponent } from './app.component';
 import { DateService } from './date.service';
-import { NotificationService } from './notification.service';
 import { SortByDate } from './sort-by-date.pipe';
 import { NoteFilter } from './note-filter.pipe';
 import { ConfigService } from './config.service';
@@ -17,7 +16,7 @@ import { TagPipe } from './tag.pipe';
 @NgModule({
   imports: [BrowserModule, FormsModule, HttpModule, FeatureModule, ServiceModule],
   declarations: [AppComponent, SortByDate, NoteFilter, TagPipe],
-  providers: [DateService, NotificationService, ConfigService, UserDataService, ],
+  providers: [DateService, ConfigService, UserDataService, ],
   bootstrap: [AppComponent]
 })
 export class AppModule {

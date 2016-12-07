@@ -18,24 +18,17 @@ let startScr;
 require('electron-reload')(__dirname);
 
 
-function createWindow() {
-	win = new BrowserWindow({ width: 1200, height: 720 })
-	win.loadURL(`file://${__dirname}/index.html`)
-
-	win.webContents.openDevTools();
-
-	win.on('closed', () => {
-
-	});
-}
-
 function putInTray() {
-	const iconName = './icon.png';
+	const iconName = './assets/icon.png';
 	const iconPath = path.resolve(iconName);
 	appIcon = new Tray(iconPath)
 
 	function removeTrayIcon() {
 		appIcon.destroy();
+		appIcon = null;
+		if (BrowserWindow.getAllWindows().length < 1) {
+			app.quit();
+		} 
 	}
 
 	function quit() {
@@ -59,6 +52,22 @@ function putInTray() {
 	appIcon.setContextMenu(contextMenu)
 }
 
+function createWindow() {
+	if (BrowserWindow.getAllWindows().length > 0) {
+		win.focus();
+		return;
+	} 
+	win = new BrowserWindow({ width: 1200, height: 720 })
+	win.loadURL(`file://${__dirname}/index.html`)
+
+	// win.setMenu(null);
+
+	win.on('closed', () => {
+
+	});
+
+	putInTray();
+}
 
 app.on('ready', () => {
 	createWindow()
@@ -66,7 +75,7 @@ app.on('ready', () => {
 
 app.on('window-all-closed', () => {
 	if (process.platform !== 'darwin') {
-		if (appIcon) {
+		if (!appIcon) {
 			app.quit();
 		}
 	}

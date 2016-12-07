@@ -211,7 +211,7 @@
 
 	margin: 0 auto;
 	width: 100%;
-	max-width: 540px;
+	max-width: 520px;
 
 	margin-bottom: 36px;
 	margin-top: 10%;
@@ -272,7 +272,7 @@
 
 	text-align: center;
 	width: 100%;
-	max-width: 540px;
+	max-width: 520px;
 
 	z-index: 1;
 }	
@@ -340,6 +340,11 @@
 	transition: transform 0.1s;
 }
 
+a {
+	color: white;
+	text-decoration: none;
+}
+
 .may-calendar-body .body .row .day.visible {
 	cursor: pointer;
 }
@@ -396,7 +401,7 @@
 	
 	margin: 48px auto 0 auto;
 	width: 100%;
-	max-width: 540px;
+	max-width: 520px;
 	overflow-x: hidden;
 	overflow-y: hidden;
 }
@@ -464,7 +469,7 @@
 
 .content .note {
 	margin: 10px auto;
-	max-width: 540px;
+	max-width: 520px;
 
 	position: relative;
 
@@ -612,7 +617,7 @@
 .editor .form > * {
 	margin-left: auto;
 	margin-right: auto;
-	max-width: 540px;
+	max-width: 520px;
 }
 
 .editor-active {

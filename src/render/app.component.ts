@@ -1,9 +1,9 @@
 import { Component, OnInit, NgZone, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
+import { DatePipe } from '@angular/common';
 import { DomSanitizer } from '@angular/platform-browser';
 import { ipcRenderer } from 'electron';
 
 import { DateService } from './date.service';
-import { NotificationService } from './notification.service';
 import { ConfigService } from './config.service';
 import { UserDataService } from './user-data.service';
 
@@ -16,6 +16,8 @@ import { SortByDate } from './sort-by-date.pipe';
   styleUrls: ["./app.component.css"]
 })
 export class AppComponent implements OnInit {
+  datePipe;
+
   colorTheme = "yellowgreen";
   colorThemes = ['yellowgreen', '#00A1CB', 'orange', '#EFA09B', 'chocolate', '#01A4A4', '#E3BA6A', '#91C494', '#B69198', '#F1601D', '#17A768', 'mediumvioletred'];
 
@@ -24,7 +26,9 @@ export class AppComponent implements OnInit {
   month: number[][];
   selectedDay: Date;
 
-  constructor(private dateService: DateService, private notificationService: NotificationService, private ngZone: NgZone, private configService: ConfigService, private userData: UserDataService, private sanitizer: DomSanitizer) {
+  constructor(private dateService: DateService, private ngZone: NgZone, private configService: ConfigService, private userData: UserDataService, private sanitizer: DomSanitizer) {
+    this.datePipe = new DatePipe(undefined);
+    
     setInterval(() => {
       this.ngZone.run(() => {
         this.today = new Date();
@@ -196,7 +200,7 @@ export class AppComponent implements OnInit {
     }) !== -1;
   }
 
-  darker(colorTheme) {
-    return this.sanitizer.bypassSecurityTrustStyle(colorTheme + ", rgba(0, 0, 0, 0.2);");
+  hashtag(day) {
+    return "#" + this.datePipe.transform(this.selectedDay, "y_MM_") + day;
   }
 }
