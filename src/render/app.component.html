@@ -55,7 +55,7 @@
 		<!-- right side container -->
 
 		<div class="content">
-			<div *ngFor="let group of notes | sortByDate">
+			<div *ngFor="let group of notes | noteFilter: selectedTag | sortByDate">
 				<div class="date">{{group.date | date: "EEE MMM dd"}}</div>
 				<div *ngFor="let note of group.notes; let noteId = index" class="note">
 					<div class="time">{{note.time | date: "hh:mm a"}}</div>
@@ -63,8 +63,8 @@
 					<div class="action" (click)="action.open($event)">
 						<i class="material-icons">more_vert</i>
 						<div dropdown #action="dropdown" class="dropdown">
-							<div (click)="action.close($event)">Edit</div>
-							<div (click)="action.close($event); removeNote(noteId)">Remove</div>
+							<div (click)="editNote(noteId)">Edit</div>
+							<div (click)="removeNote(noteId)">Remove</div>
 						</div>
 					</div>
 				</div>
@@ -91,7 +91,7 @@
 				<tag-input class="input" [(ngModel)]="curNote.tags"></tag-input>
 
 				<div class="button-group">
-					<div class="button" button (click)="addNote()">Done</div>
+					<div class="button" button (click)="done()">Done</div>
 					<div class="button" button (click)="toggleEditor()">Cancel</div>
 				</div>
 			</div>

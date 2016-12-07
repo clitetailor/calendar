@@ -94,10 +94,22 @@ export class AppComponent implements OnInit {
   editor: boolean = false;
 
   toggleEditor() {
+    if (this.edit) {
+      return;
+    }
     this.editor = !this.editor;
   }
 
   curNote: Note;
+
+  done() {
+    if (this.edit) {
+      this.edit = false;
+      this.toggleEditor();
+    } else {
+      this.addNote();
+    }
+  }
 
   addNote() {
     this.notes = this.notes.concat(this.curNote);
@@ -113,11 +125,13 @@ export class AppComponent implements OnInit {
   removeNote(index) {
     this.notes.splice(index, 1);
     this.notes = [...this.notes];
+    this.saveUserData();
   }
 
   edit: boolean = false;
 
   editNote(index) {
+    this.toggleEditor();
     this.edit = true;
     this.curNote = this.notes[index];
   }
@@ -132,7 +146,6 @@ export class AppComponent implements OnInit {
 
   loadUserData() {
     this.userData.loadUserData().then(data => {
-      console.log(data);
       if (data.notes) {
         this.notes = data.notes;
       }

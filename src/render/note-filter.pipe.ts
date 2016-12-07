@@ -5,6 +5,9 @@ import { Pipe, PipeTransform } from '@angular/core';
 })
 export class NoteFilter {
 	transform(notes, tag) {
-		return notes.filter(note => note.tag.split(" ").indexOf(tag) !== -1);
+		if (tag === "All") {
+			return notes;
+		}
+		return notes.filter(note => note.tags.replace(/^\s\s*/, '').replace(/\s\s*$/, '').split(/\s+/g).indexOf(tag) !== -1);
 	}
 }
