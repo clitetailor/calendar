@@ -1,5 +1,6 @@
 import { Component, OnInit, NgZone, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
+import { ipcRenderer } from 'electron';
 
 import { DateService } from './date.service';
 import { NotificationService } from './notification.service';
@@ -143,6 +144,8 @@ export class AppComponent implements OnInit {
     }).catch((err) => {
       console.log(err);
     })
+
+    ipcRenderer.send('usr-data');
   }
 
   loadUserData() {

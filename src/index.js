@@ -7,9 +7,8 @@ const Menu = electron.Menu;
 const Tray = electron.Tray;
 const BrowserWindow = electron.BrowserWindow;
 
-const storage = require('./main/storage.js')
-const getNotes = storage.getNotes;
-const addNote = storage.addNotes;
+let { schedule, nextNote } = require("./main/schedule.js");
+let { getNotes } = require("./main/file-system.js");
 
 let appIcon = null;
 
@@ -19,15 +18,14 @@ let startScr;
 require('electron-reload')(__dirname);
 
 
-function createWindow ()
-{	
-	win = new BrowserWindow({width: 1200, height: 720})
+function createWindow() {
+	win = new BrowserWindow({ width: 1200, height: 720 })
 	win.loadURL(`file://${__dirname}/index.html`)
 
 	win.webContents.openDevTools();
 
 	win.on('closed', () => {
-		
+
 	});
 }
 
@@ -48,10 +46,10 @@ function putInTray() {
 	const template = [{
 		label: 'Open',
 		click: createWindow
-	},{
+	}, {
 		label: 'Remove tray icon',
 		click: removeTrayIcon
-	},{
+	}, {
 		label: 'Quit',
 		click: quit
 	}]
@@ -63,40 +61,39 @@ function putInTray() {
 
 
 app.on('ready', () => {
-	//putInTray()
 	createWindow()
 });
 
-app.on('window-all-closed', () =>
-{
-	if (process.platform !== 'darwin')
-	{
+app.on('window-all-closed', () => {
+	if (process.platform !== 'darwin') {
 		if (appIcon) {
 			app.quit();
 		}
 	}
 })
 
-app.on('activate', () =>
-{
-	if (win === null)
-	{
+app.on('activate', () => {
+	if (win === null) {
 		createWindow();
 	}
 })
 
 ipc.on('remove-tray', function () {
-  appIcon.destroy();
+	appIcon.destroy();
 })
 
 app.on('window-all-closed', function () {
-	
+
 })
 
-ipc.on('get-notes', function (event) {
-	getNotes().then(docs => event.sender.send('notes-reply', docs));
-})
 
-ipc.on('add-note', function(event) {
-	addNote(event)
+
+let timeoutId;
+
+ipc.on('usr-data', function () {
+	getNotes().then(notes => {
+		schedule(timeoutId, nextNote(notes).title);
+	}).catch((err) => {
+		console.log(err);
+	})
 })
