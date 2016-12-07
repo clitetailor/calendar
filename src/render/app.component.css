@@ -150,6 +150,10 @@
 	-webkit-user-select: none;
 }
 
+.activity-bar .button.disable i {
+	color: gray;
+}
+
 /*.date-ribbon*/
 
 /*.date-ribbon {

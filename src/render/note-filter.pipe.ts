@@ -4,7 +4,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 	name: "noteFilter"
 })
 export class NoteFilter {
-	transform(notes, category) {
-		return notes.filter(note => note.tag === category);
+	transform(notes, tag) {
+		return notes.filter(note => note.tag.split(" ").indexOf(tag) !== -1);
 	}
 }

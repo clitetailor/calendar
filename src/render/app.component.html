@@ -47,6 +47,8 @@
 			<div [class.selected]="selectedTag=='Monthly'" class="tag" (click)="selectTag('Monthly')">Monthly</div>
 
 			<div class="slash"></div>
+
+			<div *ngFor="let tag of notes | tagPipe" [class.selected]="selectedTag==tag" (click)="selectTag(tag)" class="tag">{{tag}}</div>
 		</div>
 	</div>
 	<div class="right">
@@ -100,8 +102,8 @@
 		<div class="button" (click)="menu.open($event)">
 			<i class="material-icons">menu</i>
 			<div dropdown #menu="dropdown" class="dropdown dropdown-left">
-				<div>Import</div>
-				<div>Export</div>
+				<div (click)="importData()">Import</div>
+				<div (click)="exportData()">Export</div>
 			</div>
 		</div>
 		<div class="button" (click)="settings.open($event)">
@@ -110,7 +112,7 @@
 				<div *ngFor="let color of colorThemes" class="color-picker" (click)="changeColorTheme(color)" [style.color]="color"></div>
 			</div>
 		</div>
-		<div class="button" (click)="toggleEditor()">
+		<div class="button" (click)="toggleEditor()" [class.disable]="edit">
 			<i class="material-icons" [ngSwitch]="editor">
 				<span *ngSwitchDefault>add</span><span *ngSwitchCase="true">arrow_back</span>
 			</i>

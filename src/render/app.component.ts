@@ -3,6 +3,7 @@ import { Component, OnInit, NgZone, ChangeDetectionStrategy, ChangeDetectorRef }
 import { DateService } from './date.service';
 import { NotificationService } from './notification.service';
 import { ConfigService } from './config.service';
+import { UserDataService } from './user-data.service';
 
 import { Note } from './note';
 import { SortByDate } from './sort-by-date.pipe';
@@ -21,21 +22,15 @@ export class AppComponent implements OnInit {
   month: number[][];
   selectedDay: Date;
 
-  constructor(private dateService: DateService, private notificationService: NotificationService, private ngZone: NgZone, private configService: ConfigService) {
+  constructor(private dateService: DateService, private notificationService: NotificationService, private ngZone: NgZone, private configService: ConfigService, private userData: UserDataService) {
     setInterval(() => {
       this.ngZone.run(() => {
         this.today = new Date();
       })
     }, 1000)
 
-    this.configService.loadConfig().then((data) => {
-      if (data.colorTheme) {
-        this.colorTheme = data.colorTheme;
-      }
-
-    }).catch((err) => {
-      console.log(err);
-    });
+    this.loadConfig();
+    this.loadUserData();
 
     this.curNote = {
       title: "",
@@ -51,6 +46,14 @@ export class AppComponent implements OnInit {
 
   ngOnInit() {
     this.selectDay(new Date);
+  }
+
+  loadConfig() {
+    this.configService.loadConfig().then(data => {
+      if (data.colorTheme) {
+        this.colorTheme = data.colorTheme;
+      }
+    }).catch(err => console.log(err));
   }
 
   saveConfig() {
@@ -89,7 +92,6 @@ export class AppComponent implements OnInit {
   notes: Note[] = [];
 
   editor: boolean = false;
-  editNote: boolean = false;
 
   toggleEditor() {
     this.editor = !this.editor;
@@ -105,10 +107,55 @@ export class AppComponent implements OnInit {
       time: this.selectedDay
     }
     this.toggleEditor();
+    this.saveUserData();
   }
 
   removeNote(index) {
     this.notes.splice(index, 1);
     this.notes = [...this.notes];
+  }
+
+  edit: boolean = false;
+
+  editNote(index) {
+    this.edit = true;
+    this.curNote = this.notes[index];
+  }
+
+  saveUserData() {
+    this.userData.saveUserData({
+      notes: this.notes
+    }).catch((err) => {
+      console.log(err);
+    })
+  }
+
+  loadUserData() {
+    this.userData.loadUserData().then(data => {
+      console.log(data);
+      if (data.notes) {
+        this.notes = data.notes;
+      }
+    }).catch((err) => {
+      console.log(err);
+    })
+  }
+
+  importData() {
+    this.userData.importData().then((data) => {
+      if (data.notes) {
+        this.notes = this.notes.concat(data.notes);
+      }
+    }).catch((err) => {
+      console.log(err);
+    })
+  }
+
+  exportData() {
+    this.userData.exportData({
+      notes: this.notes
+    }).catch((err) => {
+      console.log(err)
+    });
   }
 }
