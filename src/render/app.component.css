@@ -328,6 +328,8 @@
 	flex: 1;
 	justify-content: center;
 
+	position: relative;
+
 	color: white;
 	font-family: Lato;
 	font-size: 16px;
@@ -365,12 +367,25 @@
 	background-color: white;
 }
 
-.may-calendar-body .body .row .day.today .button::after {
-	content: "";
-	display: block;
+.may-calendar-body .body .row .day .dot {
+	display: flex;
+	justify-content: center;
+
 	position: absolute;
-	left: 3; right: 3; bottom: 0; height: 3px;
+	height: 5px;
+	left: 0; right: 0; bottom: 0;
+}
+
+.may-calendar-body .body .row .day .dot::after {
+	content: "";
+	width: 4px;
+	height: 4px;
+	border-radius: 50%;
 	background: white;
+}
+
+.may-calendar-body .body .row .day.selected .dot::after {
+	background: gray;
 }
 
 /*Tags*/

@@ -33,9 +33,9 @@
 			</div>
 			<div class="body">
 				<div class="row" *ngFor="let week of month">
-					<div class="day" *ngFor="let day of week" [class.visible]="day" [class.today]="today.getDate()==day && today.getMonth()==selectedDay.getMonth() && today.getFullYear()==selectedDay.getFullYear()" [class.selected]="day==selectedDay.getDate()" (click)="selectDay(day)">
+					<div class="day" *ngFor="let day of week" [class.visible]="day" [class.today]="isToday(day)" [class.selected]="day==selectedDay.getDate()" (click)="selectDay(day)">
 						<span class="button">{{day}}</span>
-						<span class="tooltip"></span>
+						<div *ngIf="hasNote(day)" class="dot"></div>
 					</div>
 				</div>
 			</div>
@@ -43,12 +43,12 @@
 
 		<div class="tags" hrz-scroll>
 			<div [class.selected]="selectedTag=='All'" class="tag" (click)="selectTag('All')">All</div>
-			<div [class.selected]="selectedTag=='Weekly'" class="tag" (click)="selectTag('Weekly')">Weekly</div>
-			<div [class.selected]="selectedTag=='Monthly'" class="tag" (click)="selectTag('Monthly')">Monthly</div>
+			<!--<div [class.selected]="selectedTag=='Weekly'" class="tag" (click)="selectTag('Weekly')">Weekly</div>
+			<div [class.selected]="selectedTag=='Monthly'" class="tag" (click)="selectTag('Monthly')">Monthly</div>-->
 
 			<div class="slash"></div>
 
-			<div *ngFor="let tag of notes | tagPipe" [class.selected]="selectedTag==tag" (click)="selectTag(tag)" class="tag">{{tag}}</div>
+			<div *ngFor="let tag of notes | tagPipe" [class.selected]="selectedTag==tag" (click)="selectTag(tag.name)" class="tag">{{tag.name}} ({{tag.count}})</div>
 		</div>
 	</div>
 	<div class="right">

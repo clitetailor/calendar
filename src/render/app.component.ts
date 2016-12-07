@@ -148,6 +148,9 @@ export class AppComponent implements OnInit {
     this.userData.loadUserData().then(data => {
       if (data.notes) {
         this.notes = data.notes;
+        this.notes.forEach(note => {
+          note.time = new Date(note.time);
+        })
       }
     }).catch((err) => {
       console.log(err);
@@ -158,6 +161,9 @@ export class AppComponent implements OnInit {
     this.userData.importData().then((data) => {
       if (data.notes) {
         this.notes = this.notes.concat(data.notes);
+        this.notes.forEach(note => {
+          note.time = new Date(note.time);
+        })
       }
     }).catch((err) => {
       console.log(err);
@@ -170,5 +176,19 @@ export class AppComponent implements OnInit {
     }).catch((err) => {
       console.log(err)
     });
+  }
+
+  isToday(day) {
+    return this.today.getDate() == day && this.today.getMonth() == this.selectedDay.getMonth() && this.today.getFullYear() == this.selectedDay.getFullYear();
+  }
+
+  hasNote(day) {
+    if (this.today.getMonth() !== this.selectedDay.getMonth() || this.today.getFullYear() !== this.selectedDay.getFullYear()) {
+      return false;
+    }
+    return this.notes.findIndex((note) => {
+      let time = note.time;
+      return time.getDate() === day;
+    }) !== -1;
   }
 }

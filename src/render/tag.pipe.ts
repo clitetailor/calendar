@@ -7,19 +7,29 @@ import { Note } from './note';
 
 export class TagPipe implements PipeTransform {
 	transform(notes: Note[]) {
-		return notes.reduce((pre, cur) => {
-			let tags = cur.tags.replace(/^\s\s*/, '')
+		let tags = notes.reduce((pre, next) => {
+			let tags = next.tags.replace(/^\s\s*/, '')
 				.replace(/\s\s*$/, '')
 				.split(/\s+/g)
 				.filter((tag) => {
 					return tag !== "";
 				});
-			for (let tag of tags) {
-				if (pre.indexOf(tag) == -1) {
-					pre.push(tag);
-				}
+			return pre.concat(tags);
+		}, []).sort();
+
+		let cur = undefined;
+		let arr = []
+		for (let tag of tags) {
+			if (cur === undefined || cur.name !== tag) {
+				cur = {
+					name: tag,
+					count: 1
+				};
+				arr.push(cur);
+			} else {
+				cur.count++;
 			}
-			return pre;
-		}, []);
+		}
+		return arr;
 	}
 }
