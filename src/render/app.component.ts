@@ -17,6 +17,7 @@ import { SortByDate } from './sort-by-date.pipe';
 })
 export class AppComponent implements OnInit {
   datePipe;
+  originHref = window.location.href;
 
   colorTheme = "yellowgreen";
   colorThemes = ['yellowgreen', '#00A1CB', 'orange', '#EFA09B', 'chocolate', '#01A4A4', '#E3BA6A', '#91C494', '#B69198', '#F1601D', '#17A768', 'mediumvioletred'];
@@ -87,6 +88,7 @@ export class AppComponent implements OnInit {
       this.curNote.time = this.selectedDay;
       this.targetNote.time = this.selectedDay;
       this.month = this.dateService.getDatesInMonth(day);
+      window.location.href = this.datePipe.transform(this.selectedDay, '#y_MM_d');
     }
   }
 
@@ -225,5 +227,9 @@ export class AppComponent implements OnInit {
 
   hashtag(day) {
     return "#" + this.datePipe.transform(this.selectedDay, "y_MM_") + day;
+  }
+
+  link(day) {
+    return this.datePipe.transform(day, "y_MM_d");
   }
 }

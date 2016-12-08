@@ -56,7 +56,7 @@
 
 		<div class="content">
 			<div *ngFor="let group of notes | noteFilter: selectedTag | sortByDate;">
-				<div class="date">{{group.date | date: "EEE MMM dd"}}</div>
+				<div class="date" [id]="link(group.date)">{{group.date | date: "EEE MMM dd"}}</div>
 				<div *ngFor="let note of group.notes" class="note" (click)="selectDay(note.time)">
 					<div class="time">{{note.time | date: "hh:mm a"}}</div>
 					<div class="title">{{note.title}}</div>

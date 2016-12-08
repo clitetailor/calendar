@@ -16,11 +16,8 @@ let appIcon = null;
 let win;
 let startScr;
 
-require('electron-reload')(__dirname);
-
-
 function putInTray() {
-	const iconName = './assets/icon.png';
+	const iconName = './resources/app/assets/icon.png';
 	const iconPath = path.resolve(iconName);
 	appIcon = new Tray(iconPath)
 
