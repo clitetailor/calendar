@@ -9,6 +9,7 @@ const BrowserWindow = electron.BrowserWindow;
 
 let { schedule, nextNote } = require("./main/schedule.js");
 let { getNotes } = require("./main/file-system.js");
+let { notify } = require('./main/notify.js');
 
 let appIcon = null;
 
@@ -100,9 +101,19 @@ app.on('window-all-closed', function () {
 let timeoutId;
 
 ipc.on('usr-data', function () {
+	// setInterval(function() {
+	// 	getNotes().then(notes => {
+	// 		id = schedule(id, nextNote(note).title);
+	// 	}).catch((err) => {
+	// 		console.log(err);
+	// 	})
+	// }, 5000);
+})
+
+setInterval(function() {
 	getNotes().then(notes => {
-		schedule(timeoutId, nextNote(notes).title);
+		id = schedule(timeoutId, nextNote(notes));
 	}).catch((err) => {
 		console.log(err);
 	})
-})
+}, 30000);

@@ -6,16 +6,12 @@ module.exports.nextNote = function(notes) {
 }
 
 module.exports.schedule = function(id, note) {
-	clearTimeout(id);
-	let deltaTime = note.time - new Date().getTime();
-	
-	function callback() {
-		if (deltaTime < 5000) {
-			id = setTimeout(() => {
-				notify(note);
-			}, deltaTime)
-		} else {
-			id = setTimeout(callback, 5000);
-		}
+	if (id) {
+		clearTimeout(id);
 	}
+	let deltaTime = note.time - new Date().getTime();
+
+	return deltaTime < 30000 ? setTimeout(() => {
+		notify(note.title);
+	}, deltaTime) : undefined;
 }
