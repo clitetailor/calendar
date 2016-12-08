@@ -19,7 +19,7 @@ let startScr;
 function putInTray() {
 	const iconName = './resources/app/assets/icon.png';
 	const iconPath = path.resolve(iconName);
-	appIcon = new Tray(iconPath)
+	appIcon = new Tray(iconPath);
 
 	function removeTrayIcon() {
 		appIcon.destroy();
@@ -58,17 +58,16 @@ function createWindow() {
 	win = new BrowserWindow({ width: 1200, height: 720 })
 	win.loadURL(`file://${__dirname}/index.html`)
 
-	// win.setMenu(null);
+	win.setMenu(null);
 
 	win.on('closed', () => {
 
 	});
-
-	putInTray();
 }
 
 app.on('ready', () => {
 	createWindow()
+	putInTray();
 });
 
 app.on('window-all-closed', () => {
