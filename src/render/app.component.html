@@ -17,7 +17,7 @@
 			<div class="action" (click)="previousMonth()">
 				<i class="material-icons">keyboard_arrow_left</i>
 			</div>
-			<div class="month-year">{{selectedDay | date: "MMMM y"}}</div>
+			<div class="month-year" (click)="selectDay(today)">{{selectedDay | date: "MMMM y"}}</div>
 			<div class="action" (click)="nextMonth()">
 				<i class="material-icons">keyboard_arrow_right</i>
 			</div>
@@ -55,16 +55,16 @@
 		<!-- right side container -->
 
 		<div class="content">
-			<div *ngFor="let group of notes | noteFilter: selectedTag | sortByDate">
+			<div *ngFor="let group of notes | noteFilter: selectedTag | sortByDate;">
 				<div class="date">{{group.date | date: "EEE MMM dd"}}</div>
-				<div *ngFor="let note of group.notes; let noteId = index" class="note">
+				<div *ngFor="let note of group.notes" class="note" (click)="selectDay(note.time)">
 					<div class="time">{{note.time | date: "hh:mm a"}}</div>
 					<div class="title">{{note.title}}</div>
 					<div class="action" (click)="action.open($event)">
 						<i class="material-icons">more_vert</i>
 						<div dropdown #action="dropdown" class="dropdown">
-							<div (click)="editNote(noteId)">Edit</div>
-							<div (click)="removeNote(noteId)">Remove</div>
+							<div (click)="editNote(note)">Edit</div>
+							<div (click)="removeNote(note)">Remove</div>
 						</div>
 					</div>
 				</div>
@@ -74,31 +74,31 @@
 		<div class="editor" [class.editor-active]="editor" [style.background]="colorTheme">
 			<div class="form">
 				<div class="title">Title</div>
-				<resizable-textarea class="textarea" placeholder="Note" [(ngModel)]="curNote.title" require></resizable-textarea>
+				<resizable-textarea class="textarea" placeholder="Note" ngModel [ngModel]="curNote.title" (ngModelChange)="targetNote.title=$event"></resizable-textarea>
 
 				<div class="row">
 					<div class="col">
 						<div class="title">Date</div>
-						<date-input class="input" [ngModel]="curNote.time" (ngModelChange)="selectDay($event)"></date-input>
+						<date-input class="input" ngModel [ngModel]="curNote.time" (ngModelChange)="selectDay($event)"></date-input>
 					</div>
 					<div class="col">
 						<div class="title">Time</div>
-						<time-input class="input" [ngModel]="curNote.time" (ngModelChange)="selectDay($event)"></time-input>
+						<time-input class="input" ngModel [ngModel]="curNote.time" (ngModelChange)="selectDay($event)"></time-input>
 					</div>
 				</div>
 
 				<div class="title">Tags</div>
-				<tag-input class="input" [(ngModel)]="curNote.tags"></tag-input>
+				<tag-input class="input" ngModel [ngModel]="curNote.tags" (ngModelChange)="targetNote.tags=$event"></tag-input>
 
 				<div class="button-group">
 					<div class="button" button (click)="done()">Done</div>
-					<div class="button" button (click)="toggleEditor()">Cancel</div>
+					<div class="button" button (click)="cancel()">Cancel</div>
 				</div>
 			</div>
 		</div>
 	</div>
 
-	<div class="activity-bar">
+	<div class="activity-bar" [ngSwitch]="editor">
 		<div class="button" (click)="menu.open($event)">
 			<i class="material-icons">menu</i>
 			<div dropdown #menu="dropdown" class="dropdown dropdown-left">
@@ -112,10 +112,12 @@
 				<div *ngFor="let color of colorThemes" class="color-picker" (click)="changeColorTheme(color)" [style.color]="color"></div>
 			</div>
 		</div>
-		<div class="button" (click)="toggleEditor()" [class.disable]="edit">
-			<i class="material-icons" [ngSwitch]="editor">
-				<span *ngSwitchDefault>add</span><span *ngSwitchCase="true">arrow_back</span>
-			</i>
+
+		<div class="button" (click)="add()" *ngSwitchDefault>
+			<i class="material-icons">add</i>
+		</div>
+		<div class="button" (click)="cancel()" *ngSwitchCase="true">
+			<i class="material-icons">arrow_back</i>
 		</div>
 	</div>
 	

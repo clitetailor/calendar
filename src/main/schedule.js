@@ -7,7 +7,15 @@ module.exports.nextNote = function(notes) {
 
 module.exports.schedule = function(id, note) {
 	clearTimeout(id);
-	setTimeout(() => {
-		notify(note);
-	}, note.time - new Date())
+	let deltaTime = note.time - new Date().getTime();
+	
+	function callback() {
+		if (deltaTime < 5000) {
+			id = setTimeout(() => {
+				notify(note);
+			}, deltaTime)
+		} else {
+			id = setTimeout(callback, 5000);
+		}
+	}
 }

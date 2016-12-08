@@ -43,6 +43,7 @@ export class AppComponent implements OnInit {
       tags: "",
       time: this.selectedDay
     }
+    this.targetNote = this.curNote;
   }
 
   changeColorTheme(colorTheme) {
@@ -80,11 +81,11 @@ export class AppComponent implements OnInit {
     if (typeof day == "number") {
       let year = this.selectedDay.getFullYear(),
           month = this.selectedDay.getMonth();
-
       this.selectDay(new Date(year, month, day))
     } else {
       this.selectedDay = new Date(day);
       this.curNote.time = this.selectedDay;
+      this.targetNote.time = this.selectedDay;
       this.month = this.dateService.getDatesInMonth(day);
     }
   }
@@ -100,46 +101,72 @@ export class AppComponent implements OnInit {
   editor: boolean = false;
 
   toggleEditor() {
-    if (this.edit) {
-      return;
-    }
     this.editor = !this.editor;
   }
 
   curNote: Note;
+  targetNote: Note;
 
   done() {
+    this.notes = this.notes.concat(this.targetNote);
     if (this.edit) {
       this.edit = false;
-      this.toggleEditor();
-    } else {
-      this.addNote();
+      this.removeNote(this.curNote);
+      this.notes
     }
+    this.saveUserData();
+    this.toggleEditor();
+    this.clear();
   }
 
-  addNote() {
-    this.notes = this.notes.concat(this.curNote);
+  debug(...args) {
+    console.log(args);
+  }
+
+  clear() {
     this.curNote = {
       title: "",
       tags: "",
       time: this.selectedDay
     }
+    this.targetNote = this.curNote;
+  }
+
+  add() {
     this.toggleEditor();
+  }
+
+  cancel() {
+    if (this.edit) {
+      this.clear();
+      this.edit = false;
+    }
+    this.toggleEditor();
+  }
+
+  addNote(note) {
+    this.notes = this.notes.concat(note);
     this.saveUserData();
   }
 
-  removeNote(index) {
-    this.notes.splice(index, 1);
-    this.notes = [...this.notes];
+  removeNote(curNote) {
+    let id = this.notes.indexOf(curNote);
+    if (id > -1 && id < this.notes.length) {
+      this.notes.splice(id, 1);
+      this.notes = [...this.notes];
+    } else {
+      console.log("err");
+    }
     this.saveUserData();
   }
 
   edit: boolean = false;
 
-  editNote(index) {
-    this.toggleEditor();
+  editNote(note) {
     this.edit = true;
-    this.curNote = this.notes[index];
+    this.curNote = note;
+    this.targetNote = Object.assign({}, note);
+    this.toggleEditor();
   }
 
   saveUserData() {
