@@ -218,12 +218,8 @@ export class AppComponent implements OnInit {
   }
 
   hasNote(day) {
-    if (this.today.getMonth() !== this.selectedDay.getMonth() || this.today.getFullYear() !== this.selectedDay.getFullYear()) {
-      return false;
-    }
-    return this.notes.findIndex((note) => {
-      let time = note.time;
-      return time.getDate() === day;
+    return this.notes.map(note => note.time).findIndex((time) => {
+      return time.getDate() === day && this.selectedDay.getMonth() == time.getMonth() && this.selectedDay.getFullYear() == time.getFullYear();
     }) !== -1;
   }
 
