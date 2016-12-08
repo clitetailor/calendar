@@ -7,7 +7,7 @@ const Menu = electron.Menu;
 const Tray = electron.Tray;
 const BrowserWindow = electron.BrowserWindow;
 
-let { schedule, nextNote } = require("./main/schedule.js");
+let { nextNote } = require("./main/stuff.js");
 let { getNotes } = require("./main/file-system.js");
 let { notify } = require('./main/notify.js');
 
@@ -98,22 +98,29 @@ app.on('window-all-closed', function () {
 
 
 
-let timeoutId;
+var timeoutId;
+
+let task = () => {
+	getNotes().then(function(notes) {
+		let note = nextNote(notes),
+			deltaTime = new Date(note.time) - new Date().getTime();
+		
+		clearTimeout(timeoutId);
+		if (deltaTime > 30000) {
+			timeoutId = setTimeout(() => {
+				task();
+			}, 30000);
+		} else {
+			timeoutId = setTimeout(() => {
+				notify(note.title);
+				task();
+			}, deltaTime);
+		}
+	}).catch(err => console.log(err));
+}
 
 ipc.on('usr-data', function () {
-	// setInterval(function() {
-	// 	getNotes().then(notes => {
-	// 		id = schedule(id, nextNote(note).title);
-	// 	}).catch((err) => {
-	// 		console.log(err);
-	// 	})
-	// }, 5000);
+	task();
 })
 
-setInterval(function() {
-	getNotes().then(notes => {
-		id = schedule(timeoutId, nextNote(notes));
-	}).catch((err) => {
-		console.log(err);
-	})
-}, 30000);
+task();
