@@ -177,8 +177,6 @@ export class AppComponent implements OnInit {
     }).catch((err) => {
       console.log(err);
     })
-
-    ipcRenderer.send('usr-data');
   }
 
   loadUserData() {
